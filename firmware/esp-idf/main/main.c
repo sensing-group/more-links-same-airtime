@@ -1,6 +1,6 @@
 /**
  * WiFi Tomography Node - ESP-IDF with True CSI
- * For: ESP32-C3 (Seeed XIAO)
+ * For: ESP32-C3 / ESP32-S3 (auto-detected at build time)
  *
  * Optimized for ESP-IDF v5.x with:
  * - IRAM placement for time-critical code
@@ -10,7 +10,7 @@
  * - Full binary protocol (zero malloc overhead)
  *
  * ============================================================================
- * VERSION: 5.1.0-PURE
+ * VERSION: 5.2.0-PURE
  * ============================================================================
  *
  * Features:
@@ -22,6 +22,7 @@
  * - Batch CSI streaming (up to 12 samples/packet)
  * - CRC32 validated packets
  * - 50 Hz sustained frame rate (Nyquist validated)
+ * - Multi-target: ESP32-C3 and ESP32-S3 (compile-time detection)
  *
  * ============================================================================
  */
@@ -50,6 +51,22 @@
 #include "esp_crc.h"
 #include "rom/ets_sys.h"  // For esp_rom_delay_us
 #include "esp_task_wdt.h"  // Task watchdog
+#include "esp_chip_info.h" // Chip identification
+
+// =============================================================================
+// MULTI-TARGET SUPPORT - Compile-time chip detection via ESP-IDF build system
+// =============================================================================
+#if CONFIG_IDF_TARGET_ESP32C3
+    #define TARGET_CHIP_TYPE    0x03
+    #define TARGET_CHIP_NAME    "ESP32-C3"
+    #define TARGET_IS_DUAL_CORE 0
+#elif CONFIG_IDF_TARGET_ESP32S3
+    #define TARGET_CHIP_TYPE    0x09
+    #define TARGET_CHIP_NAME    "ESP32-S3"
+    #define TARGET_IS_DUAL_CORE 1
+#else
+    #error "Unsupported target. This firmware requires ESP32-C3 or ESP32-S3."
+#endif
 
 // =============================================================================
 // RELIABILITY CONFIGURATION
@@ -183,12 +200,9 @@ typedef struct __attribute__((packed)) {
 _Static_assert(sizeof(binary_burst_t) == BINARY_BURST_SIZE,
                "Binary BURST packet must be exactly 8 bytes");
 
-// Chip type (ESP32-C3 only)
-#define CHIP_ESP32_C3           0x03
-
-// Firmware version - v5.1.0-PURE (all backward compat removed)
+// Firmware version - v5.2.0-PURE (multi-target: C3 + S3)
 #define FW_VERSION_MAJOR        5
-#define FW_VERSION_MINOR        1
+#define FW_VERSION_MINOR        2
 #define FW_VERSION_PATCH        0
 
 // =============================================================================
@@ -818,7 +832,7 @@ static void send_hello(void)
     ip_str_to_bytes(node_ip, pkt.ip);
 
     // Chip and firmware info
-    pkt.chip_type = CHIP_ESP32_C3;
+    pkt.chip_type = TARGET_CHIP_TYPE;
     pkt.fw_major = FW_VERSION_MAJOR;
     pkt.fw_minor = FW_VERSION_MINOR;
     pkt.fw_patch = FW_VERSION_PATCH;
@@ -1315,7 +1329,7 @@ static void print_startup_config(void)
     ESP_LOGI(TAG, "========================================");
     ESP_LOGI(TAG, "  WiFi Tomography Node v%d.%d.%d-PURE",
              FW_VERSION_MAJOR, FW_VERSION_MINOR, FW_VERSION_PATCH);
-    ESP_LOGI(TAG, "  ESP32-C3 - Batch CSI Protocol");
+    ESP_LOGI(TAG, "  %s - Batch CSI Protocol", TARGET_CHIP_NAME);
     ESP_LOGI(TAG, "  Built: %s %s", __DATE__, __TIME__);
     ESP_LOGI(TAG, "========================================");
     ESP_LOGI(TAG, "");
