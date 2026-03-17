@@ -129,7 +129,7 @@ class NodeRegistry:
                     label=self._labels.get(mac),
                 )
                 self._nodes[mac] = node
-                logger.info(f"New node registered: {node.label} ({chip}) at {ip}")
+                logger.info(f"New node registered: {node.label} [{mac[-5:]}] ({chip}) at {ip}")
 
         await self._notify_change()
         return node

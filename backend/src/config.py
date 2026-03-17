@@ -39,7 +39,8 @@ NODE_REMOVAL_TIMEOUT_S = float(os.environ.get("NODE_REMOVAL_S", "300.0"))
 # =============================================================================
 DATA_DIR = os.environ.get("CSI_DATA_DIR", "./csi_data")
 FILE_ROTATION_MINUTES = 60
-WRITE_BUFFER_SIZE = 100
+WRITE_BUFFER_SIZE = 2000
+CSI_COMPRESS = os.environ.get("CSI_COMPRESS", "false").lower() == "true"
 
 # =============================================================================
 # Physical Map (optional)

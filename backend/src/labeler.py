@@ -469,13 +469,13 @@ class LabelingServer:
         async with self._lock:
             today = now.strftime("%Y-%m-%d")
 
-            # Rotate file at midnight
-            if self._label_file_date != today:
+            # Rotate file at midnight or re-create if deleted
+            date_dir = self._data_dir / today
+            path = date_dir / "labels.jsonl"
+            if self._label_file_date != today or not path.exists():
                 if self._label_file:
                     self._label_file.close()
-                date_dir = self._data_dir / today
                 date_dir.mkdir(parents=True, exist_ok=True)
-                path = date_dir / "labels.jsonl"
                 self._label_file = open(path, "a")
                 self._label_file_date = today
                 logger.info(f"Label file: {path}")

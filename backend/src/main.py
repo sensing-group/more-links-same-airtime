@@ -28,7 +28,8 @@ from synchronizer import FrameSynchronizer
 from receiver import CSIReceiver
 from scheduler import TDMAScheduler
 from labeler import LabelingServer
-from config import UDP_PORT, MIN_NODES_TO_START
+from writer import CSIWriter
+from config import UDP_PORT, MIN_NODES_TO_START, DATA_DIR, WRITE_BUFFER_SIZE, FILE_ROTATION_MINUTES, CSI_COMPRESS
 
 logging.basicConfig(
     level=logging.INFO,
@@ -51,6 +52,12 @@ class CSIServer:
         self.receiver = CSIReceiver(self.registry, self.synchronizer)
         self.scheduler = TDMAScheduler(self.registry)
         self.labeler = LabelingServer()
+        self.writer = CSIWriter(
+            data_dir=DATA_DIR,
+            buffer_size=WRITE_BUFFER_SIZE,
+            rotation_minutes=FILE_ROTATION_MINUTES,
+            compress=CSI_COMPRESS,
+        )
 
         # Link synchronizer to scheduler for slot_id resolution
         self.synchronizer._scheduler = self.scheduler
@@ -72,6 +79,8 @@ class CSIServer:
         await self.synchronizer.start()
         await self.scheduler.start()
         await self.labeler.start()
+        await self.writer.start()
+        self.receiver.on_csi(self.writer.write)
 
         self._running = True
         self._status_task = asyncio.create_task(self._status_loop())
@@ -93,6 +102,7 @@ class CSIServer:
             except asyncio.CancelledError:
                 pass
 
+        await self.writer.stop()
         await self.labeler.stop()
         await self.scheduler.stop()
         await self.synchronizer.stop()
@@ -116,11 +126,14 @@ class CSIServer:
                 recv_stats = self.receiver.get_stats()
                 sync_stats = self.synchronizer.get_stats()
 
+                writer_stats = self.writer.get_stats()
                 logger.info(
                     f"Status: nodes={online}/{total}, "
                     f"cycles={sched_stats['cycle_count']}, "
                     f"triggers={sched_stats['triggers_sent']}, "
-                    f"packets={recv_stats['packets_received']}, "
+                    f"packets_rx={recv_stats['packets_received']}, "
+                    f"packets_saved={writer_stats['packets_written']}, "
+                    f"dropped={writer_stats['packets_dropped']}, "
                     f"frames={sync_stats['frames_built']}"
                 )
 
