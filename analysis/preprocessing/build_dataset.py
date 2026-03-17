@@ -225,6 +225,39 @@ def process_day(
     return records
 
 
+def load_label_events(date_dir: Path) -> pd.DataFrame:
+    """
+    Load all label events from labels_*.jsonl files in a date directory.
+
+    Returns a DataFrame with columns 'ts' (float) and 'label' (str), sorted by ts.
+    Returns an empty DataFrame if no label files are found.
+    """
+    records = []
+    for label_file in sorted(date_dir.glob("labels_*.jsonl")):
+        try:
+            with open(label_file, 'r') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        ev = json.loads(line)
+                        ts = ev.get('ts')
+                        label = ev.get('label', '')
+                        if ts and label:
+                            records.append({'ts': float(ts), 'label': label})
+                    except json.JSONDecodeError:
+                        continue
+        except Exception as e:
+            logger.error(f"Error reading {label_file}: {e}")
+
+    if not records:
+        return pd.DataFrame(columns=['ts', 'label'])
+
+    df = pd.DataFrame(records).sort_values('ts').reset_index(drop=True)
+    return df
+
+
 def main():
     parser = argparse.ArgumentParser(description='Build dataset from raw CSI')
     parser.add_argument('--input-dir', type=Path, required=True,
@@ -237,6 +270,14 @@ def main():
                         help='Window size in milliseconds')
     parser.add_argument('--format', choices=['parquet', 'csv'], default='parquet',
                         help='Output format')
+    parser.add_argument('--labels', type=Path, default=None,
+                        help='Legacy CSV label file (fallback if no JSONL labels found)')
+    parser.add_argument('--env-id', type=str, default='ENV-A',
+                        help='Environment identifier added to output (default: ENV-A)')
+    parser.add_argument('--hw-type', type=str, default='esp32c3',
+                        help='Hardware type added to output (default: esp32c3)')
+    parser.add_argument('--verbose', action='store_true',
+                        help='Enable verbose logging')
     args = parser.parse_args()
 
     logger.info("=" * 60)
@@ -258,6 +299,11 @@ def main():
 
     logger.info(f"Processing {len(dates)} days: {dates[0]} to {dates[-1]}")
 
+    # Load legacy labels if provided (fallback)
+    legacy_labels = None
+    if args.labels and args.labels.exists():
+        legacy_labels = pd.read_csv(args.labels)
+
     # Process each day
     all_records = []
     for date_str in dates:
@@ -269,6 +315,45 @@ def main():
 
     # Create DataFrame
     df = pd.DataFrame(all_records)
+
+    if not df.empty:
+        # Try merge_asof with JSONL labels per day
+        label_frames = []
+        has_jsonl = False
+        for date_str in dates:
+            day_dir = args.input_dir / date_str
+            if day_dir.exists():
+                lbl = load_label_events(day_dir)
+                if not lbl.empty:
+                    has_jsonl = True
+                    label_frames.append(lbl)
+
+        if has_jsonl and label_frames:
+            all_labels = pd.concat(label_frames, ignore_index=True).sort_values('ts').reset_index(drop=True)
+            df = df.sort_values('timestamp').reset_index(drop=True)
+            df = pd.merge_asof(
+                df.rename(columns={'timestamp': 'ts'}),
+                all_labels,
+                on='ts',
+                direction='backward'
+            ).rename(columns={'ts': 'timestamp'})
+        elif legacy_labels is not None:
+            # Fallback: hour-integer join with legacy CSV
+            df['_hour'] = pd.to_datetime(df['window_start']).dt.hour
+            merged = df.merge(
+                legacy_labels[['date', 'hour', 'lr_occupied']].rename(columns={'hour': '_hour'}),
+                on=['date', '_hour'],
+                how='left'
+            )
+            merged['label'] = merged['lr_occupied'].map({1: 'occupied', 0: 'empty'})
+            df = merged.drop(columns=['_hour', 'lr_occupied'], errors='ignore')
+        else:
+            if args.verbose:
+                logger.warning("No label files found; output will have no labels")
+
+        # Add environment and hardware columns
+        df['env_id'] = args.env_id
+        df['hw_type'] = args.hw_type
 
     # Save
     args.output.parent.mkdir(parents=True, exist_ok=True)
