@@ -27,14 +27,15 @@ from registry import NodeRegistry
 from synchronizer import FrameSynchronizer
 from receiver import CSIReceiver
 from scheduler import TDMAScheduler
+from labeler import LabelingServer
 from config import UDP_PORT, MIN_NODES_TO_START
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
     datefmt='%H:%M:%S'
 )
+
 logger = logging.getLogger(__name__)
 
 
@@ -49,6 +50,7 @@ class CSIServer:
         self.synchronizer = FrameSynchronizer(frame_rate=20)
         self.receiver = CSIReceiver(self.registry, self.synchronizer)
         self.scheduler = TDMAScheduler(self.registry)
+        self.labeler = LabelingServer()
 
         # Link synchronizer to scheduler for slot_id resolution
         self.synchronizer._scheduler = self.scheduler
@@ -69,6 +71,7 @@ class CSIServer:
         await self.receiver.start(port=UDP_PORT)
         await self.synchronizer.start()
         await self.scheduler.start()
+        await self.labeler.start()
 
         self._running = True
         self._status_task = asyncio.create_task(self._status_loop())
@@ -90,6 +93,7 @@ class CSIServer:
             except asyncio.CancelledError:
                 pass
 
+        await self.labeler.stop()
         await self.scheduler.stop()
         await self.synchronizer.stop()
         await self.receiver.stop()

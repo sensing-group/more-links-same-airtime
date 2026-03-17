@@ -10,6 +10,9 @@ numpy>=1.21.0
 # pandas>=1.3.0
 # scipy>=1.7.0
 
+# Labeling server WebSocket support
+websockets>=11.0
+
 # Optional - REST API server
 # Uncomment to add HTTP API endpoints
 # fastapi>=0.68.0
