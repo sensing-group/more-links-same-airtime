@@ -48,6 +48,9 @@ figures/
 *.png
 *.pdf
 
+# Physical map (contains real node MACs/positions)
+physical_map.txt
+
 # OS
 .DS_Store
 Thumbs.db

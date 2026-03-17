@@ -1,9 +1,11 @@
 # Physical Map - Node Positions
 # =============================
 #
-# Format: MAC_ADDRESS,X,Y,Z
+# Format: MAC_ADDRESS,X,Y,Z,LABEL,POSITION
 #   - MAC_ADDRESS: Uppercase with colons (e.g., 1C:69:7A:AB:CD:EF)
 #   - X, Y, Z: Position in meters relative to room origin
+#   - LABEL: Auto-generated as Node-1, Node-2, etc.
+#   - POSITION: Description of where in the room (e.g., back left)
 #
 # The Z coordinate is typically the height above floor.
 #
@@ -20,6 +22,6 @@
 #
 # Uncomment and modify the lines below with your actual node MACs:
 #
-# 1C:69:7A:00:00:01,1.0,1.0,1.5
-# 1C:69:7A:00:00:02,2.0,3.0,1.5
-# 1C:69:7A:00:00:03,3.0,1.0,1.5
+# 1C:69:7A:00:00:01,1.0,1.0,1.5,Node-1,back-left
+# 1C:69:7A:00:00:02,2.0,3.0,1.5,Node-2,front-center
+# 1C:69:7A:00:00:03,3.0,1.0,1.5,Node-3,back-right

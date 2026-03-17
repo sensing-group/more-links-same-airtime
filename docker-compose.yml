@@ -35,7 +35,7 @@ services:
 
       # Physical map for node positions (optional)
       # Format: MAC,x,y,z per line (e.g., "1C:69:7A:AB:CD:EF,0.0,0.0,1.5")
-      - ./physical_map.txt:/app/physical_map.txt:ro
+      - ./physical_map.txt:/app/physical_map.txt
 
     # Environment variables
     environment:

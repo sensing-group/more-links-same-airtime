@@ -37,6 +37,7 @@ class Node:
     uptime_s: int = 0
     free_heap: int = 0
     position: Optional[tuple] = None  # (x, y, z) from physical map
+    label: Optional[str] = None       # human-readable name from physical map
     packets_received: int = 0
     packets_sent: int = 0
 

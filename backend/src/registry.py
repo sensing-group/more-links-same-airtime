@@ -33,6 +33,7 @@ class NodeRegistry:
         self._links: Dict[tuple, LinkStats] = {}
         self._lock = asyncio.Lock()
         self._positions: Dict[str, tuple] = {}
+        self._labels: Dict[str, str] = {}
         self._on_node_change: List[Callable] = []
         self._health_task: Optional[asyncio.Task] = None
 
@@ -53,26 +54,53 @@ class NodeRegistry:
         logger.info("Node registry stopped")
 
     def _load_physical_map(self):
-        """Load node positions from physical_map.txt."""
-        path = Path(PHYSICAL_MAP_FILE)
-        if not path.exists():
-            logger.warning(f"Physical map not found: {path}")
+        """Load node positions and labels from physical_map.txt."""
+        self._map_path = Path(PHYSICAL_MAP_FILE)
+        self._next_node_num = 1
+
+        if not self._map_path.exists():
+            self._map_path.touch()
+            logger.info(f"Created physical map: {self._map_path}")
             return
 
         try:
-            with open(path, 'r') as f:
+            with open(self._map_path, 'r') as f:
                 for line in f:
                     line = line.strip()
                     if not line or line.startswith('#'):
                         continue
-                    parts = line.split(',')
+                    parts = line.split(',', 5)
                     if len(parts) >= 4:
                         mac = parts[0].strip().upper()
                         x, y, z = float(parts[1]), float(parts[2]), float(parts[3])
                         self._positions[mac] = (x, y, z)
+                        if len(parts) >= 5 and parts[4].strip():
+                            label = parts[4].strip()
+                            self._labels[mac] = label
+                            # Track highest Node-N to continue numbering
+                            if label.startswith("Node-"):
+                                try:
+                                    n = int(label.split("-", 1)[1])
+                                    self._next_node_num = max(self._next_node_num, n + 1)
+                                except ValueError:
+                                    pass
             logger.info(f"Loaded {len(self._positions)} node positions")
         except Exception as e:
             logger.error(f"Failed to load physical map: {e}")
+
+    def _append_to_physical_map(self, mac: str):
+        """Auto-append a new node to physical_map.txt with a generated label."""
+        label = f"Node-{self._next_node_num}"
+        self._next_node_num += 1
+        self._labels[mac] = label
+        self._positions[mac] = (0.0, 0.0, 0.0)
+
+        try:
+            with open(self._map_path, 'a') as f:
+                f.write(f"{mac},0.0,0.0,0.0,{label},\n")
+            logger.info(f"Added {label} ({mac}) to physical map")
+        except Exception as e:
+            logger.error(f"Failed to write physical map: {e}")
 
     async def register_node(self, mac: str, ip: str, chip: str = "ESP32",
                            version: str = "1.0") -> Node:
@@ -87,18 +115,21 @@ class NodeRegistry:
                 node.last_seen = datetime.now()
                 if node.status == NodeStatus.OFFLINE:
                     node.status = NodeStatus.ONLINE
-                    logger.info(f"Node {mac} came back online at {ip}")
+                    logger.info(f"Node {node.label or mac} came back online at {ip}")
             else:
+                if mac not in self._labels:
+                    self._append_to_physical_map(mac)
                 node = Node(
                     mac=mac,
                     ip=ip,
                     chip=chip,
                     version=version,
                     status=NodeStatus.ONLINE,
-                    position=self._positions.get(mac)
+                    position=self._positions.get(mac),
+                    label=self._labels.get(mac),
                 )
                 self._nodes[mac] = node
-                logger.info(f"New node registered: {mac} ({chip}) at {ip}")
+                logger.info(f"New node registered: {node.label} ({chip}) at {ip}")
 
         await self._notify_change()
         return node
@@ -214,7 +245,7 @@ class NodeRegistry:
             for mac, node in self._nodes.items():
                 if node.status != NodeStatus.OFFLINE:
                     if node.is_stale(HEARTBEAT_TIMEOUT_S):
-                        logger.warning(f"Node {node.mac} went offline (timeout)")
+                        logger.warning(f"Node {node.label or node.mac} went offline (timeout)")
                         node.status = NodeStatus.OFFLINE
                         changed = True
                 else:

@@ -41,6 +41,10 @@ CHIP_TYPES = {
     0x02: "ESP32-S2",
     0x03: "ESP32-C3",
     0x04: "ESP32-S3",
+    # ESP-IDF esp_chip_model_t native values
+    0x05: "ESP32-C3",
+    0x09: "ESP32-S3",
+    0x0C: "ESP32-C6",
 }
 
 
@@ -221,7 +225,7 @@ class CSIReceiver:
         if self.synchronizer:
             self.synchronizer.register_node(mac, ip)
 
-        logger.info(f"HELLO from {mac[-5:]} ({chip} v{version}) at {ip}")
+        logger.debug(f"HELLO from {node.label or mac[-5:]} ({chip} v{version}) at {ip}")
 
         for callback in self._on_hello:
             try:
@@ -270,7 +274,7 @@ class CSIReceiver:
             if self.synchronizer:
                 self.synchronizer.register_node(mac, ip)
 
-            logger.info(f"HELLO from {mac[-5:]} ({chip} v{version}) at {ip} [binary]")
+            logger.debug(f"HELLO from {node.label or mac[-5:]} ({chip} v{version}) at {ip} [binary]")
 
             for callback in self._on_hello:
                 try:
