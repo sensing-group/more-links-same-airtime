@@ -70,6 +70,7 @@ def main() -> None:
         lines.append(f"{site} & {task.capitalize()} & {w}\\,s & {bold(few['auc'], many['auc'])} & {num(few['j_vote'])} & "
                      f"{bold(many['auc'], few['auc'])} & {num(many['j_vote'])} & {wins(src, few, many)} \\\\")
     lines += [r"\bottomrule", r"\end{tabular*}", r"\end{table}"]
+    OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("\n".join(lines) + "\n")
     print(OUT.read_text())
 

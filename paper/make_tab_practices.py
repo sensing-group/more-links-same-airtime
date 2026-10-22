@@ -37,6 +37,7 @@ def main() -> None:
              r"\midrule"]
     lines += [" & ".join(r) + r" \\" for r in rows]
     lines += [r"\bottomrule", r"\end{tabular*}", r"\end{table*}"]
+    OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("\n".join(lines) + "\n")
     print(OUT.read_text())
 

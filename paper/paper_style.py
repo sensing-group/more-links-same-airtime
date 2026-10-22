@@ -44,5 +44,6 @@ def apply() -> None:
 
 def save(fig, stem: str) -> None:
     """Save at the exact figure size (no tight bounding box, so the width stays the printed width)."""
+    FIG_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIG_DIR / f"{stem}.pdf")
     fig.savefig(FIG_DIR / f"{stem}.png")
