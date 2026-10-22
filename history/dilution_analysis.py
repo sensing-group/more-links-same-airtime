@@ -506,7 +506,7 @@ def main():
     print("ENV 3: ST. GALLEN LIVING ROOM", flush=True)
     print("=" * 70, flush=True)
 
-    sg_path = EWSN_DIR / "T0003_sg-kk-living-room_ewsn.npz"
+    sg_path = EWSN_DIR / "T0003_residence_ewsn.npz"
     if sg_path.exists():
         d = np.load(sg_path, allow_pickle=True)
         features_sg = d["features"]
