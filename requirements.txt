@@ -1,0 +1,8 @@
+# Versions used for the paper (Python 3.12)
+numpy==2.4.1
+scipy==1.17.0
+scikit-learn==1.8.0
+matplotlib==3.10.8
+zstandard==0.25.0
+orjson==3.12.0
+torch==2.5.1  # CPU build is enough: pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu

@@ -1,0 +1,360 @@
+{
+  "_schema_version": 2,
+  "_description": "Hardware profiles for OpenCSI calibration. Each profile includes subcarrier configurations for different bandwidths.",
+
+  "ESP32": {
+    "hardware_family": "esp32",
+    "description": "Generic ESP32 (WROOM/WROVER) - WiFi 4 (802.11n)",
+    "supported_bandwidths": [20, 40],
+    "supported_bands": ["2.4GHz"],
+    "max_tx_antennas": 1,
+    "max_rx_antennas": 1,
+    "subcarrier_configs": {
+      "20": {
+        "num_subcarriers": 52,
+        "pilot_indices": [6, 20, 32, 46],
+        "dc_index": 26
+      },
+      "40": {
+        "num_subcarriers": 114,
+        "pilot_indices": [6, 20, 32, 46, 60, 74, 86, 100],
+        "dc_index": 57
+      }
+    },
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -95,
+      "typical_amplitude_sigma": 2.5,
+      "typical_phase_sigma_rad": 0.8,
+      "typical_snr_db": 25
+    }
+  },
+
+  "ESP32_WROOM": {
+    "hardware_family": "esp32",
+    "description": "ESP32-WROOM module",
+    "inherits": "ESP32"
+  },
+
+  "ESP32_WROVER": {
+    "hardware_family": "esp32",
+    "description": "ESP32-WROVER module with PSRAM",
+    "inherits": "ESP32"
+  },
+
+  "ESP32_S2": {
+    "hardware_family": "esp32",
+    "description": "ESP32-S2 single-core - WiFi 4",
+    "inherits": "ESP32",
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -94,
+      "typical_amplitude_sigma": 2.4,
+      "typical_phase_sigma_rad": 0.75,
+      "typical_snr_db": 26
+    }
+  },
+
+  "ESP32_S3": {
+    "hardware_family": "esp32",
+    "description": "ESP32-S3 dual-core - WiFi 4",
+    "inherits": "ESP32",
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -94,
+      "typical_amplitude_sigma": 2.2,
+      "typical_phase_sigma_rad": 0.7,
+      "typical_snr_db": 27
+    }
+  },
+
+  "ESP32_C3": {
+    "hardware_family": "esp32",
+    "description": "ESP32-C3 RISC-V - WiFi 4",
+    "inherits": "ESP32",
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -94,
+      "typical_amplitude_sigma": 2.3,
+      "typical_phase_sigma_rad": 0.75,
+      "typical_snr_db": 26
+    }
+  },
+
+  "ESP32_C6": {
+    "hardware_family": "esp32",
+    "description": "ESP32-C6 RISC-V - WiFi 6 (802.11ax)",
+    "supported_bandwidths": [20, 40],
+    "supported_bands": ["2.4GHz", "5GHz"],
+    "max_tx_antennas": 1,
+    "max_rx_antennas": 1,
+    "subcarrier_configs": {
+      "20": {
+        "num_subcarriers": 242,
+        "pilot_indices": [24, 48, 72, 96, 145, 169, 193, 217],
+        "dc_index": 121
+      },
+      "40": {
+        "num_subcarriers": 484,
+        "pilot_indices": [24, 48, 72, 96, 145, 169, 193, 217, 266, 290, 314, 338, 387, 411, 435, 459],
+        "dc_index": 242
+      }
+    },
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -93,
+      "typical_amplitude_sigma": 2.0,
+      "typical_phase_sigma_rad": 0.65,
+      "typical_snr_db": 28
+    }
+  },
+
+  "INTEL_5300": {
+    "hardware_family": "intel_5300",
+    "description": "Intel WiFi Link 5300 - WiFi 4 (802.11n)",
+    "supported_bandwidths": [20],
+    "supported_bands": ["2.4GHz", "5GHz"],
+    "max_tx_antennas": 3,
+    "max_rx_antennas": 3,
+    "subcarrier_configs": {
+      "20": {
+        "num_subcarriers": 30,
+        "pilot_indices": [7, 21],
+        "dc_index": 15,
+        "_note": "Intel 5300 reports 30 subcarrier groups, not individual subcarriers"
+      }
+    },
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -92,
+      "typical_amplitude_sigma": 3.0,
+      "typical_phase_sigma_rad": 0.9,
+      "typical_snr_db": 30
+    },
+    "supports_mimo": true,
+    "has_reliable_agc": true
+  },
+
+  "NEXMON_BCM4339": {
+    "hardware_family": "nexmon",
+    "description": "Broadcom BCM4339 via Nexmon CSI - WiFi 5 (802.11ac)",
+    "supported_bandwidths": [20, 40, 80],
+    "supported_bands": ["2.4GHz", "5GHz"],
+    "max_tx_antennas": 1,
+    "max_rx_antennas": 1,
+    "subcarrier_configs": {
+      "20": {
+        "num_subcarriers": 64,
+        "pilot_indices": [11, 25, 39, 53],
+        "dc_index": 32
+      },
+      "40": {
+        "num_subcarriers": 128,
+        "pilot_indices": [11, 25, 53, 75, 89, 117],
+        "dc_index": 64
+      },
+      "80": {
+        "num_subcarriers": 256,
+        "pilot_indices": [25, 53, 89, 117, 139, 167, 203, 231],
+        "dc_index": 128
+      }
+    },
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -93,
+      "typical_amplitude_sigma": 2.8,
+      "typical_phase_sigma_rad": 0.85,
+      "typical_snr_db": 27
+    }
+  },
+
+  "NEXMON_BCM43455": {
+    "hardware_family": "nexmon",
+    "description": "Broadcom BCM43455 (Raspberry Pi) via Nexmon CSI - WiFi 5",
+    "inherits": "NEXMON_BCM4339",
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -94,
+      "typical_amplitude_sigma": 2.6,
+      "typical_phase_sigma_rad": 0.8,
+      "typical_snr_db": 26
+    }
+  },
+
+  "NEXMON_BCM43456": {
+    "hardware_family": "nexmon",
+    "description": "Broadcom BCM43456 via Nexmon CSI - WiFi 5",
+    "inherits": "NEXMON_BCM4339"
+  },
+
+  "ATHEROS_AR9380": {
+    "hardware_family": "atheros",
+    "description": "Atheros AR9380 - WiFi 4 (802.11n)",
+    "supported_bandwidths": [20, 40],
+    "supported_bands": ["2.4GHz", "5GHz"],
+    "max_tx_antennas": 3,
+    "max_rx_antennas": 3,
+    "subcarrier_configs": {
+      "20": {
+        "num_subcarriers": 56,
+        "pilot_indices": [7, 21, 35, 49],
+        "dc_index": 28
+      },
+      "40": {
+        "num_subcarriers": 114,
+        "pilot_indices": [7, 21, 35, 49, 63, 77, 91, 105],
+        "dc_index": 57
+      }
+    },
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -95,
+      "typical_amplitude_sigma": 2.5,
+      "typical_phase_sigma_rad": 0.8,
+      "typical_snr_db": 28
+    },
+    "supports_mimo": true,
+    "has_reliable_agc": true
+  },
+
+  "ATHEROS_AR9580": {
+    "hardware_family": "atheros",
+    "description": "Atheros AR9580 - WiFi 4 (802.11n)",
+    "inherits": "ATHEROS_AR9380"
+  },
+
+  "ATHEROS_QCA9558": {
+    "hardware_family": "atheros",
+    "description": "Qualcomm Atheros QCA9558 - WiFi 4 (802.11n)",
+    "inherits": "ATHEROS_AR9380",
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -94,
+      "typical_amplitude_sigma": 2.4,
+      "typical_phase_sigma_rad": 0.75,
+      "typical_snr_db": 29
+    }
+  },
+
+  "IWL_AX200": {
+    "hardware_family": "intel_ax",
+    "description": "Intel AX200 - WiFi 6 (802.11ax)",
+    "supported_bandwidths": [20, 40, 80, 160],
+    "supported_bands": ["2.4GHz", "5GHz"],
+    "max_tx_antennas": 2,
+    "max_rx_antennas": 2,
+    "subcarrier_configs": {
+      "20": {
+        "num_subcarriers": 242,
+        "pilot_indices": [24, 48, 72, 96, 145, 169, 193, 217],
+        "dc_index": 121
+      },
+      "40": {
+        "num_subcarriers": 484,
+        "pilot_indices": [24, 48, 72, 96, 145, 169, 193, 217, 266, 290, 314, 338, 387, 411, 435, 459],
+        "dc_index": 242
+      },
+      "80": {
+        "num_subcarriers": 996,
+        "pilot_indices": [24, 48, 72, 96, 145, 169, 193, 217, 266, 290, 314, 338, 387, 411, 435, 459, 508, 532, 556, 580, 629, 653, 677, 701, 750, 774, 798, 822, 871, 895, 919, 943],
+        "dc_index": 498
+      },
+      "160": {
+        "num_subcarriers": 1992,
+        "pilot_indices": [24, 92, 150, 218, 266, 334, 392, 460, 536, 604, 662, 730, 778, 846, 904, 972, 1020, 1088, 1146, 1214, 1262, 1330, 1388, 1456, 1532, 1600, 1658, 1726, 1774, 1842, 1900, 1968],
+        "dc_index": 996
+      }
+    },
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -92,
+      "typical_amplitude_sigma": 2.0,
+      "typical_phase_sigma_rad": 0.6,
+      "typical_snr_db": 32
+    },
+    "supports_mimo": true,
+    "has_reliable_agc": true
+  },
+
+  "IWL_AX201": {
+    "hardware_family": "intel_ax",
+    "description": "Intel AX201 - WiFi 6 (802.11ax) integrated",
+    "inherits": "IWL_AX200"
+  },
+
+  "IWL_AX210": {
+    "hardware_family": "intel_ax",
+    "description": "Intel AX210 - WiFi 6E (802.11ax)",
+    "inherits": "IWL_AX200",
+    "supported_bands": ["2.4GHz", "5GHz", "6GHz"]
+  },
+
+  "IWL_AX211": {
+    "hardware_family": "intel_ax",
+    "description": "Intel AX211 - WiFi 6E (802.11ax) integrated",
+    "inherits": "IWL_AX210"
+  },
+
+  "IWL_BE200": {
+    "hardware_family": "intel_be",
+    "description": "Intel BE200 - WiFi 7 (802.11be)",
+    "supported_bandwidths": [20, 40, 80, 160, 320],
+    "supported_bands": ["2.4GHz", "5GHz", "6GHz"],
+    "max_tx_antennas": 2,
+    "max_rx_antennas": 2,
+    "subcarrier_configs": {
+      "20": {
+        "num_subcarriers": 242,
+        "pilot_indices": [24, 48, 72, 96, 145, 169, 193, 217],
+        "dc_index": 121
+      },
+      "40": {
+        "num_subcarriers": 484,
+        "pilot_indices": [24, 48, 72, 96, 145, 169, 193, 217, 266, 290, 314, 338, 387, 411, 435, 459],
+        "dc_index": 242
+      },
+      "80": {
+        "num_subcarriers": 996,
+        "pilot_indices": [24, 92, 150, 218, 266, 334, 392, 460, 536, 604, 662, 730, 778, 846, 904, 972],
+        "dc_index": 498
+      },
+      "160": {
+        "num_subcarriers": 1992,
+        "pilot_indices": [24, 92, 150, 218, 266, 334, 392, 460, 536, 604, 662, 730, 778, 846, 904, 972, 1020, 1088, 1146, 1214, 1262, 1330, 1388, 1456, 1532, 1600, 1658, 1726, 1774, 1842, 1900, 1968],
+        "dc_index": 996
+      },
+      "320": {
+        "num_subcarriers": 3984,
+        "pilot_indices": [],
+        "dc_index": 1992,
+        "_note": "WiFi 7 320 MHz - pilot indices TBD"
+      }
+    },
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -91,
+      "typical_amplitude_sigma": 1.8,
+      "typical_phase_sigma_rad": 0.5,
+      "typical_snr_db": 35
+    },
+    "supports_mimo": true,
+    "has_reliable_agc": true,
+    "_status": "stub - CSI extraction tools not yet available for WiFi 7"
+  },
+
+  "IWL_BE202": {
+    "hardware_family": "intel_be",
+    "description": "Intel BE202 - WiFi 7 (802.11be) integrated",
+    "inherits": "IWL_BE200"
+  },
+
+  "GENERIC_WIFI4_HT20": {
+    "hardware_family": "generic",
+    "description": "Generic WiFi 4 (802.11n) HT20 device",
+    "supported_bandwidths": [20],
+    "supported_bands": ["2.4GHz"],
+    "max_tx_antennas": 1,
+    "max_rx_antennas": 1,
+    "subcarrier_configs": {
+      "20": {
+        "num_subcarriers": 52,
+        "pilot_indices": [6, 20, 32, 46],
+        "dc_index": 26
+      }
+    },
+    "calibration_defaults": {
+      "typical_noise_floor_dbm": -95,
+      "typical_amplitude_sigma": 3.0,
+      "typical_phase_sigma_rad": 1.0,
+      "typical_snr_db": 20
+    }
+  }
+}

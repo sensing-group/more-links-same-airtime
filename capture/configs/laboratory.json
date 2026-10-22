@@ -1,0 +1,118 @@
+{
+  "width": 7.02,
+  "height": 4.44,
+  "nodes": {
+    "3C:64": {
+      "x": 0.0,
+      "y": 3.24
+    },
+    "42:A8": {
+      "x": 1.98,
+      "y": 4.44
+    },
+    "43:24": {
+      "x": 5.06,
+      "y": 4.44
+    },
+    "43:64": {
+      "x": 2.01,
+      "y": 0.0
+    },
+    "6C:64": {
+      "x": 5.23,
+      "y": 0.0
+    },
+    "88:94": {
+      "x": 3.43,
+      "y": 0.0
+    },
+    "89:90": {
+      "x": 7.02,
+      "y": 3.13
+    },
+    "9A:68": {
+      "x": 7.02,
+      "y": 0.53
+    },
+    "9F:08": {
+      "x": 3.44,
+      "y": 4.44
+    },
+    "D3:34": {
+      "x": 0.0,
+      "y": 1.49
+    }
+  },
+  "features": [
+    {
+      "id": "window-1",
+      "type": "window",
+      "x": 0.04,
+      "y": 0.0,
+      "width": 4.44,
+      "height": 1.0,
+      "rotation": 90.0,
+      "flip": false
+    },
+    {
+      "id": "table-1",
+      "type": "table",
+      "x": 0.5,
+      "y": 0.0,
+      "width": 1.8,
+      "height": 0.8,
+      "rotation": 0.0,
+      "flip": false
+    },
+    {
+      "id": "table-2",
+      "type": "table",
+      "x": 2.42,
+      "y": 1.6,
+      "width": 1.6,
+      "height": 0.8,
+      "rotation": 90.0,
+      "flip": false
+    },
+    {
+      "id": "table-3",
+      "type": "table",
+      "x": 2.42,
+      "y": 1.6,
+      "width": 1.6,
+      "height": 0.8,
+      "rotation": 0.0,
+      "flip": false
+    },
+    {
+      "id": "table-4",
+      "type": "table",
+      "x": 3.12,
+      "y": 3.64,
+      "width": 1.6,
+      "height": 0.8,
+      "rotation": 0.0,
+      "flip": false
+    },
+    {
+      "id": "door-1",
+      "type": "door",
+      "x": 6.89,
+      "y": 0.03,
+      "width": 1.0,
+      "height": null,
+      "rotation": 180.0,
+      "flip": true
+    },
+    {
+      "id": "door-2",
+      "type": "door",
+      "x": 7.01,
+      "y": 2.91,
+      "width": 1.0,
+      "height": null,
+      "rotation": 270.0,
+      "flip": true
+    }
+  ]
+}

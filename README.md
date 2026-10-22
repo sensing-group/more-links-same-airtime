@@ -1,274 +1,84 @@
-# Less is More - ESP32-C3 WiFi CSI Sensing
+# More Links, Same Airtime
 
-We empirically show the 'Less is More' dilution effect, showing that adding nodes introduces tradeoffs where bandwidth saturation and TDMA limitations force sampling rates below the Nyquist threshold. Strategic and sparse sensor placement is superior to dense meshes/complex algorithimic solutions.
+Code for *More Links, Same Airtime: Spending a Shared Channel's Sounding Budget on WiFi Sensing*
+(Karim Khamaisi and Bruno Rodrigues, Sensing Group, University of St. Gallen; submitted to
+ACM MobiSys 2027).
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/a0301509-113c-4c70-9528-9eec0db3c313" width="400">
-</p>
+Under IEEE 802.11bf, every pair of devices that senses people draws its soundings from the airtime
+of one shared channel. The paper measures how a fixed sounding budget should be split: a budget
+detects people best when spread over as many pairs as leave each pair about two soundings per
+decision, and receivers that overhear a sounding add evidence at no airtime cost. Spreading costs
+calibration (label-free detectors need a longer empty-room reference) and privacy (an adaptive
+schedule reveals occupancy).
 
-## Overview
+**Dataset:** CSI from a 14-node office mesh (27 sessions) and six scripted trials in a living room
+and a laboratory, on Zenodo (DOI to be added). Place it under `data/` as described below.
 
-This project provides a complete system for distributed WiFi sensing using CSI data. It implements:
+## Earlier version
 
-- **Ring-based TDMA Protocol**: Collision-free transmission scheduling for multi-node WiFi sensing
-- **Binary Protocol**: Zero-malloc, CRC32-validated communication between nodes and server
-- **Real-time Synchronization**: Converts chaotic UDP streams into coherent CSI tensors
+This repository first accompanied the preprint
+[*Less is More: The Dilution Effect in Multi-Link Wireless Sensing*](https://arxiv.org/abs/2602.10823),
+which reported that a single well-placed link outperformed the full mesh. The paper above revisits
+that question at equal airtime and with sound evaluation, and finds the opposite. Its §8 measures
+the evaluation practices that produce an apparent dilution effect, and its §10 explains why the
+preprint's apartment recording is not used. The preprint's recorder and analysis are kept in
+`tdma-mesh/` and at tag `v1-dilution-preprint`.
 
-### Architecture
+License: MIT.
 
-```
-┌────────────────────────────────────────────────────────────────┐
-│                    TDMA Cycle (N nodes)                        │
-├────────────────────────────────────────────────────────────────┤
-│                                                                │
-│  Backend (Python)        ESP32 Nodes                           │
-│  ────────────────        ────────────                          │
-│                                                                │
-│  TRIGGER(Node1) ───────▶ Node1: TX burst packets               │
-│                          Others: Capture CSI → Ring buffer     │
-│                                                                │
-│  TRIGGER(Node2) ───────▶ Node2: TX burst packets               │
-│                          Others: Send CSI, capture new         │
-│                                                                │
-│  ... (repeats for all nodes) ...                               │
-│                                                                │
-│  One cycle complete ──▶  Effective rate: ~5-10 Hz              │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘
-```
-## Dataset
+## Layout
 
-Dataset collected from a 9-node ESP32-C3 mesh network deployed in a 5×4 meter residential environment. The dataset comprises over 300 hours of continuous recordings across 72 directional RF links, totaling 1.6 million time windows with semi-automatic ground truth labels for presence, activity, and occupancy count.
+| Folder | Contents |
+|---|---|
+| `scripts/` | Feature extraction and every analysis behind the paper's numbers |
+| `paper/` | Figure and table scripts; they read only `results/` |
+| `results/` | The analysis outputs the paper reports (JSON) |
+| `capture/` | The recorder and ESP32 firmware that captured the scripted trials, at commit `618c876`, with WiFi credentials replaced by placeholders |
+| `ghost_eval/` | Memory limit helper used by the scripts |
+| `data/` | Place the dataset here: `data/office/sessions/`, `data/office/features/` and `data/trials/` |
+| `tdma-mesh/` | The earlier TDMA recorder and the preprint's analysis (see below) |
 
-<img width="191" height="20" alt="image" src="https://github.com/user-attachments/assets/111df159-6f22-4302-9f2f-52b609481472" />
-
-https://doi.org/10.5281/zenodo.18486250
-
-## Paper
-[![arXiv](https://img.shields.io/badge/arXiv-2602.10823-b31b1b.svg)](https://arxiv.org/abs/2602.10823)
-
-If you find this code or dataset useful for your research, please cite our paper:
-```bibtex
-@misc{rodrigues2026lessismore,
-      title={Less is More: The Dilution Effect in Multi-Link Wireless Sensing}, 
-      author={Bruno Rodrigues and Karim Khamaisi},
-      year={2026},
-      eprint={2602.10823},
-      archivePrefix={arXiv},
-      primaryClass={cs.NI},
-      url={[https://arxiv.org/abs/2602.10823](https://arxiv.org/abs/2602.10823)}, 
-}
-```
-
-## Features
-
-- **Scalable**: Supports 2-16 ESP32-C3 nodes
-- **Configurable Timing**: Adjust slot duration, burst count, and cycle delay
-- **Reliable**: Watchdog timers, heap monitoring, auto-reconnect
-- **Efficient**: Binary protocol with CRC32 validation, IRAM-optimized callbacks
-- **Synchronized**: Frame builder produces (N_links, 52) numpy tensors
-- **Analysis Scripts**: Complete evaluation pipeline for paper reproducibility
-
-## Hardware Requirements
-
-- **ESP32-C3 boards**: Tested with Seeed XIAO ESP32-C3
-- **WiFi Access Point**: All nodes must connect to the same AP on the same channel
-- **Server**: Any machine running Python 3.8+ or Docker (Linux recommended)
-
-## Quick Start
-
-### Option A: Docker (Recommended)
-
-Docker provides the easiest way to run the backend with guaranteed reproducibility.
-
-```bash
-# 1. Clone and enter the directory
-cd opensource-release
-
-# 2. Create data directory
-mkdir -p data/csi
-
-# 3. Build and run
-docker compose up --build
-```
-
-**Important**: The container uses `network_mode: host` which is required for UDP communication with ESP32 nodes. This means the container shares the host's network stack.
-
-To stop:
-```bash
-docker compose down
-```
-
-### Option B: Native Python
-
-#### 1. Flash the Firmware
-
-```bash
-cd firmware/esp-idf
-
-# IMPORTANT: Configure WiFi credentials in sdkconfig.defaults:
-# CONFIG_WIFI_SSID="your_wifi_ssid"
-# CONFIG_WIFI_PASSWORD="your_wifi_password"
-# CONFIG_SERVER_IP="192.168.1.100"  # Your backend server IP
-
-# Clean and build (MUST delete sdkconfig first)
-rm -f sdkconfig
-idf.py set-target esp32c3
-idf.py build
-idf.py -p /dev/ttyUSB0 flash monitor
-```
-
-Repeat for each ESP32-C3 node.
-
-#### 2. Start the Backend
-
-```bash
-cd backend/src
-
-# Install dependencies
-pip install numpy
-
-# Run the server
-python main.py
-```
-
-The server will:
-1. Listen for ESP32 node registrations on UDP port 5000
-2. Wait for at least 2 nodes to come online
-3. Start TDMA scheduling, broadcasting triggers on UDP port 5001
-4. Collect and synchronize CSI data from all nodes
-
-#### 3. Verify Operation
-
-You should see output like:
-```
-Server ready on UDP port 5000
-Waiting for 2+ ESP32 nodes to come online...
-HELLO from 1C:D5 (ESP32-C3 v5.1.0-PURE) at 192.168.1.101
-HELLO from 2A:F3 (ESP32-C3 v5.1.0-PURE) at 192.168.1.102
-TDMA Scheduler started
-Status: nodes=2/2, cycles=10, triggers=40, packets=320, frames=100
-```
-
-## Configuration
-
-### Backend (config.py)
-
-```python
-SLOT_DURATION_MS = 20        # Time per node slot (ms)
-BURSTS_PER_TRIGGER = 10      # Packets per burst
-CYCLE_DELAY_MS = 5           # Guard time between slots (ms)
-MIN_NODES_TO_START = 2       # Minimum nodes to start scheduling
-```
-
-### Firmware (main.c)
-
-```c
-#define CONFIG_WIFI_SSID "your_wifi_ssid"
-#define CONFIG_WIFI_PASSWORD "your_wifi_password"
-#define CONFIG_SERVER_IP "192.168.1.100"
-#define CONFIG_WIFI_CHANNEL 11  // Lock to specific channel
-```
-
-## Sampling Rate
-
-The effective CSI sampling rate depends on the number of nodes and timing configuration:
+## Reproducing the figures and tables
 
 ```
-Rate (Hz) = 1000 / (N × (slot_ms + cycle_delay_ms))
-```
-
-| Nodes | Slot (ms) | Delay (ms) | Rate (Hz) |
-|-------|-----------|------------|-----------|
-| 9 | 20 | 5 | 4.4 |
-| 7 | 20 | 5 | 5.7 |
-| 4 | 20 | 5 | 10.0 |
-| 3 | 20 | 5 | 13.3 |
-
-## Directory Structure
-
-```
-opensource-release/
-├── docker-compose.yml       # Docker orchestration
-├── firmware/
-│   └── esp-idf/
-│       └── main/
-│           └── main.c       # ESP32-C3 firmware
-├── backend/
-│   ├── Dockerfile           # Container build
-│   ├── requirements.txt     # Python dependencies
-│   └── src/
-│       ├── main.py          # Entry point
-│       ├── config.py        # Configuration
-│       ├── models.py        # Data models
-│       ├── registry.py      # Node registry
-│       ├── receiver.py      # UDP receiver
-│       ├── synchronizer.py  # Frame synchronizer
-│       └── scheduler/
-│           └── tdma_scheduler.py
-├── analysis/                # Paper reproducibility scripts
-│   ├── evaluation/          # Presence detection evaluation
-│   ├── preprocessing/       # Data preparation
-│   ├── visualization/       # Publication figures
-│   ├── utils/               # Statistical tests, reproducibility
-│   └── REPRODUCIBILITY.md   # Step-by-step guide
-├── docs/
-│   └── TDMA_TIMING_DESIGN.md
-├── LICENSE
-└── README.md
-```
-
-## Protocol Details
-
-### Binary Packet Formats
-
-| Packet | Size | Magic | Purpose |
-|--------|------|-------|---------|
-| HELLO | 40 bytes | 0xC5 0x01 | Node registration |
-| HEARTBEAT | 24 bytes | 0xC5 0x02 | Keepalive |
-| TRIGGER | 32 bytes | 0xC5 0x10 | TX command |
-| CSI Batch | Variable | 0xC5 0x07 | CSI data (v5) |
-
-All packets include CRC32 validation.
-
-### UDP Ports
-
-| Port | Direction | Purpose |
-|------|-----------|---------|
-| 5000 | Node → Server | CSI data, HELLO, HEARTBEAT |
-| 5001 | Server → Nodes | TRIGGER commands (broadcast) |
-| 5555 | Node → Nodes | Burst packets (broadcast) |
-
-## Reproducing Paper Results
-
-See `analysis/REPRODUCIBILITY.md` for detailed instructions. Quick start:
-
-```bash
-cd analysis
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Run evaluation
-python evaluation/evaluate_presence_detection.py \
-    --data-dir /path/to/csi_data \
-    --labels /path/to/labels.csv \
-    --output-dir ./results
-
-# Generate figures
-python visualization/plot_results.py \
-    --results ./results/evaluation_results.json \
-    --output-dir ./figures
+cd paper
+for s in fig_*.py make_tab_*.py; do python3 $s; done   # writes ../figures/
 ```
 
-The evaluation includes:
-- Leave-One-Day-Out cross-validation
-- Link selection comparison (Top-k vs All-links vs Random)
-- Wilcoxon signed-rank test for statistical significance
-- Bootstrap confidence intervals
-- Cohen's d effect size
+The scripts regenerate the plots of Figs. 2 and 5-11 and Tables 3 and 4 of the paper from
+`results/`, identical to the submitted figures. Figs. 1, 3 and 4 and the left half of Fig. 2 are
+photographs and diagrams.
 
-## License
+## Reproducing the analyses
 
-MIT License - see LICENSE file for details.
+`run_all.sh` runs every step in order; each step writes one file or folder under `work/`.
+The office steps stream one session at a time and cap their memory (`ghost_eval/memlimit.py`).
+Plan on a machine with 16 GB of RAM, and set `OPENBLAS_NUM_THREADS=1` when running steps in
+parallel.
 
+| Paper item | Script | Output in `results/` |
+|---|---|---|
+| Table 3 (trial rows), Figs. 2 and 6, §5 | `scripted_trial_decision_windows.py` (default, `TASKS=presence`, `--budget-unit tx`, `--classifier hgb`) | `scripted_trial_decision_windows*.json` |
+| Table 3 (office rows), Figs. 2, 5 and 6, time-only control | `extract_rate_decimated_features.py` (decision windows), then `decision_window_ablation.py --window W` | `decision_windows/decision_window_ablation_w<W>s.json` |
+| Fig. 7 | `sounding_correlation_analysis.py` | `sounding_correlation.json` |
+| Fig. 8 | `scripted_trial_decision_windows.py` and `--budget-unit tx` | `scripted_trial_decision_windows.json`, `scripted_trial_decision_windows_tx.json` |
+| Fig. 9, §6 | `calibration_reference_analysis.py`, `calibration_model.py` | `calibration_reference.json`, `calibration_model.json` |
+| Fig. 10, §7 | `extract_rate_decimated_features.py` (60 s), `rate_decimation_ablation.py`, `schedule_leak_analysis.py` | `rate_decimated/rate_decimation_ablation.json`, `schedule_leak.json` |
+| Table 4, Fig. 11, §8 | `extract_dataset_release_features.py`, `threshold_practices_analysis.py`, `rate_decimation_ablation.py` | `threshold_practices.json`, `rate_decimated/rate_decimation_ablation.json` |
+| §4 counts and phase-order control | `office_session_stats.py`, `trial_window_counts.py`, `trial_phase_order_check.py` | `office_session_stats.json`, `trial_window_counts.json`, `trial_phase_order_check.json` |
+| §5, neural network | `neural_budget_check.py` (`INPUT_MODE=calibrated` and `dynamic`) | `neural_budget_check*.json` |
+| §10, radio floor | `radio_noise_floor_analysis.py` | `radio_noise_floor.json` |
+| §10 (dropped apartment site) | `apartment_budget_features.py` on Zenodo 10.5281/zenodo.18486249 | not shipped |
+
+The office analyses pair every occupied window with an empty window of the same fold and the
+same quarter hour of the day, over 10 draws, so the time of day cannot separate the classes
+(`--empty-match time`, the default; `--empty-match none` gives the unmatched protocol).
+
+The office decision-window extraction keeps the 44 links in
+`results/decision_window_link_whitelist.json`; `decision_window_ablation.py` then fixes, without
+labels, the 16 of them most often available in 5 s windows.
+
+## Citation
+
+See `CITATION.cff`. The preprint can be cited as arXiv:2602.10823.

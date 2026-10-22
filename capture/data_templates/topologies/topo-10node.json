@@ -1,0 +1,12 @@
+{
+  "topology_id": "topo-10node",
+  "description": "10 ESP32 nodes",
+  "num_nodes": 10,
+  "height_profile": "variable",
+  "nodes": [],
+  "channel": 6,
+  "bandwidth": "HT20",
+  "tx_power_dbm": 20,
+  "antenna_type": "onboard",
+  "created_at": "2026-03-31T00:00:00+00:00"
+}

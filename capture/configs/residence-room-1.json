@@ -1,0 +1,37 @@
+{
+  "width": 3.28,
+  "height": 6.06,
+  "nodes": {
+    "A5:50": { "x": 0.00, "y": 0.20, "label": "N1" },
+    "A1:84": { "x": 1.64, "y": 0.20, "label": "N2" },
+    "A2:64": { "x": 3.28, "y": 0.20, "label": "N3" },
+    "A3:1C": { "x": 0.00, "y": 3.03, "label": "N4" },
+    "90:48": { "x": 1.64, "y": 3.03, "label": "N5" },
+    "87:44": { "x": 3.28, "y": 3.03, "label": "N6" },
+    "8C:D0": { "x": 0.41, "y": 6.06, "label": "N7" },
+    "A4:C8": { "x": 1.64, "y": 6.06, "label": "N8" },
+    "9B:48": { "x": 2.87, "y": 6.06, "label": "N9" }
+  },
+  "features": [
+    {
+      "id": "door-1",
+      "type": "door",
+      "x": 3.28,
+      "y": 0.18,
+      "width": 0.80,
+      "height": null,
+      "rotation": 90.0,
+      "flip": false
+    },
+    {
+      "id": "window-1",
+      "type": "window",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 3.28,
+      "height": null,
+      "rotation": 0.0,
+      "flip": false
+    }
+  ]
+}

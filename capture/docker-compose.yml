@@ -1,0 +1,11 @@
+services:
+  csi-sense:
+    build: .
+    container_name: csi_sense
+    network_mode: host
+    env_file:
+      - .env
+    volumes:
+      - ./config.json:/app/config.json
+      - ./data:/app/data
+    restart: unless-stopped

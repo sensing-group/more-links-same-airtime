@@ -1,0 +1,11 @@
+{
+  "environment_id": "lab-alpha",
+  "description": "",
+  "dimensions_m": {"length": 0, "width": 0, "height": 0},
+  "furniture": "",
+  "wall_material": "",
+  "floor_material": "",
+  "known_interference": [],
+  "photos": [],
+  "created_at": "2026-03-31T00:00:00+00:00"
+}

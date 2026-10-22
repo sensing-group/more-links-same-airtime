@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper."
+title: "More Links, Same Airtime: analysis code"
+authors:
+  - family-names: Khamaisi
+    given-names: Karim
+    affiliation: "Sensing Group, University of St. Gallen"
+  - family-names: Rodrigues
+    given-names: Bruno
+    affiliation: "Sensing Group, University of St. Gallen"
+license: MIT
+preferred-citation:
+  type: conference-paper
+  title: "More Links, Same Airtime: Spending a Shared Channel's Sounding Budget on WiFi Sensing"
+  authors:
+    - family-names: Khamaisi
+      given-names: Karim
+    - family-names: Rodrigues
+      given-names: Bruno
+  year: 2027
