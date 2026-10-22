@@ -10,7 +10,7 @@ authors:
     affiliation: "Sensing Group, University of St. Gallen"
 license: MIT
 doi: 10.5281/zenodo.23574129
-repository-code: "https://github.com/brunobastosrodrigues/less-is-more-wifi-sensing"
+repository-code: "https://github.com/sensing-group/more-links-same-airtime"
 preferred-citation:
   type: conference-paper
   title: "More Links, Same Airtime: Spending a Shared Channel's Sounding Budget on WiFi Sensing"
