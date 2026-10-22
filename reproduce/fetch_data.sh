@@ -11,6 +11,6 @@ for f in $FILES; do
 done
 sha256sum -c SHA256SUMS
 for t in *.tar; do tar xf "$t"; done
-sha256sum -c --quiet office/SHA256SUMS.sessions
+(cd office && sha256sum -c --quiet SHA256SUMS.sessions)
 sha256sum -c --quiet SHA256SUMS.trials
 echo "Dataset ready in $DATA"
