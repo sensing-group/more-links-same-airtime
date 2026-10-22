@@ -9,6 +9,10 @@ preprint's question and reaches the opposite conclusion; see the top-level READM
 The `analysis/` folder of the preprint is now `dilution-preprint-analysis/`. All paths below are
 relative to this folder.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a0301509-113c-4c70-9528-9eec0db3c313" width="400">
+</p>
+
 ## Overview
 
 This project provides a complete system for distributed WiFi sensing using CSI data. It implements:

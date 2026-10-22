@@ -14,6 +14,10 @@ decision, and receivers that overhear a sounding add evidence at no airtime cost
 calibration (label-free detectors need a longer empty-room reference) and privacy (an adaptive
 schedule reveals occupancy).
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a0301509-113c-4c70-9528-9eec0db3c313" width="400">
+</p>
+
 **Dataset:** CSI from a 14-node office mesh (27 sessions) and six scripted trials in a living room
 and a laboratory, on Zenodo: https://doi.org/10.5281/zenodo.23574119. This code is archived at
 https://doi.org/10.5281/zenodo.23574129.
