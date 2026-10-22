@@ -5,8 +5,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2602.10823-b31b1b.svg)](https://arxiv.org/abs/2602.10823)
 
 Code for *More Links, Same Airtime: Spending a Shared Channel's Sounding Budget on WiFi Sensing*
-(Karim Khamaisi and Bruno Rodrigues, Sensing Group, University of St. Gallen; submitted to
-ACM MobiSys 2027).
+(Karim Khamaisi and Bruno Rodrigues, Sensing Group, University of St. Gallen).
 
 Under IEEE 802.11bf, every pair of devices that senses people draws its soundings from the airtime
 of one shared channel. The paper measures how a fixed sounding budget should be split: a budget
