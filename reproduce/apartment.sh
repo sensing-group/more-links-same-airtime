@@ -2,6 +2,9 @@
 # The dropped apartment site (Sections 6 and 10): time of day alone predicts its labels at AUC 0.82,
 # while no CSI detector does. CSI: the preprint's Zenodo record 10.5281/zenodo.18486250 (46 GB).
 # Labels: data/apartment/labels/{confirmed_empty_periods.json,living_room_occupancy_labels.csv}.
+# These two files record when a private home was occupied and are NOT published; the result this
+# step produces is shipped as results/apartment/decision_window_ablation_w60s.json, and
+# reproduce/compare.py treats the step as optional.
 # The extraction streams one hour file at a time; it takes several hours.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
