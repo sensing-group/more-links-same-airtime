@@ -6,6 +6,10 @@ and every numeric leaf is compared. A value matches when it is within ATOL or wi
 shipped value. Exit status 0 means every compared value matched.
 
 Usage: python3 reproduce/compare.py [--work work] [--results results] [--atol 1e-6] [--rtol 1e-6]
+                                    [--paper] [--only PREFIX ...]
+--paper accepts differences up to PAPER_ATOL, the rounding of the two decimals the paper prints
+(for reruns on other CPUs, where floating-point order can move the last digits). --only limits the
+comparison to outputs whose path starts with one of the prefixes (e.g. the trial outputs).
 """
 from __future__ import annotations
 
@@ -18,6 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ATOL = 1e-6
 RTOL = 1e-6
+PAPER_ATOL = 0.005
 MAX_REPORTED = 10   # mismatching values printed per file
 # Outputs of optional steps (reproduce/apartment.sh needs the apartment labels): reported, not required
 OPTIONAL = ("apartment/",)
@@ -47,11 +52,17 @@ def main() -> int:
     ap.add_argument("--results", default=str(ROOT / "results"))
     ap.add_argument("--atol", type=float, default=ATOL)
     ap.add_argument("--rtol", type=float, default=RTOL)
+    ap.add_argument("--paper", action="store_true", help=f"tolerate differences up to {PAPER_ATOL}")
+    ap.add_argument("--only", nargs="*", default=None, help="compare only outputs starting with these prefixes")
     a = ap.parse_args()
     work, results = Path(a.work), Path(a.results)
+    if a.paper:
+        a.atol = max(a.atol, PAPER_ATOL)
     total_bad = total_missing = 0
     for ref in sorted(results.rglob("*.json")):
         rel = ref.relative_to(results)
+        if a.only is not None and not str(rel).startswith(tuple(a.only)):
+            continue
         mine = work / rel
         if not mine.exists():
             optional = str(rel).startswith(OPTIONAL)
