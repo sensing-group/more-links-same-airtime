@@ -1,0 +1,54 @@
+{
+  "n_boot": 10000,
+  "seed": 0,
+  "trial_gain": {
+    "occupancy_2s": {
+      "mean": 0.1589,
+      "ci95": [
+        0.1258,
+        0.1913
+      ],
+      "wins": 6,
+      "n": 6
+    },
+    "motion_1s": {
+      "mean": 0.1099,
+      "ci95": [
+        0.0787,
+        0.1626
+      ],
+      "wins": 6,
+      "n": 6
+    }
+  },
+  "office_gain": {
+    "occupancy_20s": {
+      "mean": 0.0852,
+      "ci95": [
+        0.0462,
+        0.1274
+      ],
+      "wins": 18,
+      "n": 20
+    },
+    "occupancy_60s": {
+      "mean": 0.0995,
+      "ci95": [
+        0.0581,
+        0.1452
+      ],
+      "wins": 17,
+      "n": 20
+    }
+  },
+  "cover_cost": {
+    "min": 1.024,
+    "max": 1.153,
+    "median": 1.056,
+    "n_sessions": 5
+  },
+  "crossing_lag_s": {
+    "occupied_static": 0.328,
+    "occupied_moving": 0.38
+  }
+}

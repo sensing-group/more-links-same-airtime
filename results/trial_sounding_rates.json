@@ -1,0 +1,38 @@
+{
+  "T0003_residence": {
+    "n_pairs": 56,
+    "median_hz": 16.85,
+    "min_hz": 3.79,
+    "max_hz": 24.27
+  },
+  "T0004_residence": {
+    "n_pairs": 56,
+    "median_hz": 21.87,
+    "min_hz": 12.85,
+    "max_hz": 25.42
+  },
+  "T0008_laboratory": {
+    "n_pairs": 56,
+    "median_hz": 20.09,
+    "min_hz": 4.01,
+    "max_hz": 42.57
+  },
+  "T0009_laboratory": {
+    "n_pairs": 56,
+    "median_hz": 21.5,
+    "min_hz": 7.96,
+    "max_hz": 40.91
+  },
+  "T0010_laboratory": {
+    "n_pairs": 56,
+    "median_hz": 19.53,
+    "min_hz": 1.89,
+    "max_hz": 43.66
+  },
+  "T0011_laboratory": {
+    "n_pairs": 56,
+    "median_hz": 20.93,
+    "min_hz": 1.86,
+    "max_hz": 43.28
+  }
+}

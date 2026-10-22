@@ -1,0 +1,57 @@
+% Study design (full text width, 17.8 cm, natural size): recordings -> budget
+% emulation -> features -> detectors -> evaluation, feeding the budget result,
+% its two costs and the evaluation practices.
+\definecolor{cbBlue}{RGB}{0,114,178}
+\definecolor{cbOrange}{RGB}{230,159,0}
+\definecolor{cbGreen}{RGB}{0,158,115}
+\definecolor{cbPurple}{RGB}{204,121,167}
+\definecolor{cbVerm}{RGB}{213,94,0}
+\begin{tikzpicture}[
+    stage/.style={font=\footnotesize\sffamily\bfseries, text=black!75, anchor=south},
+    box/.style={rectangle, rounded corners=2pt, line width=0.5pt, text width=2.95cm,
+                minimum height=1.2cm, align=center, font=\footnotesize\sffamily},
+    rec/.style={box, draw=cbBlue!60, fill=cbBlue!8},
+    emu/.style={box, draw=cbPurple!60, fill=cbPurple!8},
+    fea/.style={box, draw=cbOrange!70, fill=cbOrange!10},
+    det/.style={box, draw=cbGreen!80, fill=cbGreen!10},
+    eva/.style={box, draw=black!45, fill=black!4},
+    res/.style={box, draw=cbVerm!70, fill=cbVerm!8, text width=3.85cm, minimum height=0.7cm},
+    arrow/.style={-{Stealth[length=1.6mm, width=1.3mm]}, line width=0.5pt, draw=black!55},
+]
+\def\xA{0}\def\xB{3.55}\def\xC{7.1}\def\xD{10.65}\def\xE{14.2}
+\def\yT{0}\def\yB{-1.5}\def\yS{0.75}\def\yR{-3.1}
+
+\node[stage] at (\xA,\yS) {Recordings};
+\node[rec] (r1) at (\xA,\yT) {Office: 14 nodes,\\27 sessions, adaptive};
+\node[rec] (r2) at (\xA,\yB) {Trials: 6 runs, 8 nodes,\\4 rooms, fixed};
+
+\node[stage] at (\xB,\yS) {Emulate a budget};
+\node[emu] (e1) at (\xB,\yT) {Remove duplicates,\\fix the pair set};
+\node[emu] (e2) at (\xB,\yB) {Thin each pair\\to rate $f$, $B{=}Kf$};
+
+\node[stage] at (\xC,\yS) {Features};
+\node[fea] (f1) at (\xC,\yT) {Decision window\\$W$ from 1 to 60\,s};
+\node[fea] (f2) at (\xC,\yB) {11 statistics per pair,\\standardized};
+
+\node[stage] at (\xD,\yS) {Detectors};
+\node[det] (d1) at (\xD,\yT) {Trained: logistic\\regression, boosted\\trees, neural network};
+\node[det] (d2) at (\xD,\yB) {Threshold: max and\\vote rules};
+
+\node[stage] at (\xE,\yS) {Evaluation};
+\node[eva] (v1) at (\xE,\yT) {Hold out sessions\\or whole trials};
+\node[eva] (v2) at (\xE,\yB) {AUC, $J$, false alarms;\\time-only control};
+
+\foreach \a/\b in {r1/r2, e1/e2, f1/f2, d1/d2, v1/v2} \draw[arrow] (\a) -- (\b);
+\draw[arrow] (r2.east) -- ++(0.15,0) |- (e1.west);
+\draw[arrow] (e2.east) -- ++(0.15,0) |- (f1.west);
+\draw[arrow] (f2.east) -- ++(0.15,0) |- (d1.west);
+\draw[arrow] (d2.east) -- ++(0.15,0) |- (v1.west);
+
+\node[res] (a1) at (0.45,\yR) {\S\ref{sec:budget} Spending the budget};
+\node[res] (a2) at (4.75,\yR) {\S\ref{sec:calibration} Calibration cost};
+\node[res] (a3) at (9.05,\yR) {\S\ref{sec:schedule} Privacy cost};
+\node[res] (a4) at (13.35,\yR) {\S\ref{sec:practices} Practices that distort it};
+\draw[line width=0.5pt, draw=black!55] (v2.south) -- ++(0,-0.35) coordinate (bus);
+\draw[line width=0.5pt, draw=black!55] (a1.north |- bus) -- (a4.north |- bus);
+\foreach \r in {a1,a2,a3,a4} \draw[arrow] (\r.north |- bus) -- (\r.north);
+\end{tikzpicture}

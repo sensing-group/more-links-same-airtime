@@ -1,0 +1,170 @@
+{
+  "timestamp": "2026-10-22T20:21:04",
+  "analysis": "dilution_effect_multi_environment",
+  "environments": {
+    "kloten_apartment": {
+      "environment": "Kloten apartment (12 nodes, 72 links, 12 days)",
+      "source": "EWSN paper published values",
+      "per_link_auc": {
+        "n_links": 72,
+        "n_windows": 288,
+        "n_pos": 109,
+        "n_neg": 203,
+        "median": 0.633,
+        "frac_above_05": 0.89,
+        "frac_above_07": 0.2,
+        "frac_below_05": 0.11
+      },
+      "link_count_ablation": {
+        "1": {
+          "topk_auc": 0.534,
+          "random_auc_mean": 0.487
+        },
+        "3": {
+          "topk_auc": 0.351,
+          "random_auc_mean": 0.467
+        },
+        "10": {
+          "topk_auc": 0.47,
+          "random_auc_mean": 0.508
+        },
+        "36": {
+          "topk_auc": 0.504,
+          "random_auc_mean": 0.486
+        },
+        "72": {
+          "topk_auc": 0.534,
+          "random_auc_mean": 0.534
+        }
+      },
+      "key_finding": "Single link AUC 0.541 > full mesh 0.489 (d=0.86)"
+    },
+    "dornbirn_residential": {
+      "environment": "Dornbirn residential (14 nodes, 155 links, 312 hours)",
+      "per_link_auc": {
+        "n_links": 226,
+        "n_windows_original": 9912,
+        "n_windows_balanced": 608,
+        "n_pos": 152,
+        "n_neg": 456,
+        "median": 0.5772,
+        "mean": 0.5793,
+        "std": 0.0884,
+        "iqr": 0.1343,
+        "frac_above_05": 0.6593,
+        "frac_above_06": 0.3894,
+        "frac_above_07": 0.1106,
+        "frac_below_05": 0.1416,
+        "min": 0.3366,
+        "max": 0.7909
+      },
+      "link_count_ablation": {
+        "1": {
+          "topk_J": 0.5526,
+          "random_J_mean": 0.1949,
+          "random_J_std": 0.157,
+          "bottomk_J": 0.0,
+          "gap": 0.3577
+        },
+        "2": {
+          "topk_J": 0.5329,
+          "random_J_mean": 0.2914,
+          "random_J_std": 0.148,
+          "bottomk_J": 0.0,
+          "gap": 0.2414
+        },
+        "3": {
+          "topk_J": 0.4825,
+          "random_J_mean": 0.3379,
+          "random_J_std": 0.1023,
+          "bottomk_J": 0.0,
+          "gap": 0.1446
+        },
+        "5": {
+          "topk_J": 0.4825,
+          "random_J_mean": 0.2806,
+          "random_J_std": 0.1149,
+          "bottomk_J": 0.0,
+          "gap": 0.2019
+        },
+        "10": {
+          "topk_J": 0.4276,
+          "random_J_mean": 0.2838,
+          "random_J_std": 0.1035,
+          "bottomk_J": 0.0,
+          "gap": 0.1438
+        },
+        "20": {
+          "topk_J": 0.3925,
+          "random_J_mean": 0.2331,
+          "random_J_std": 0.1151,
+          "bottomk_J": 0.0,
+          "gap": 0.1594
+        },
+        "50": {
+          "topk_J": 0.4013,
+          "random_J_mean": 0.2102,
+          "random_J_std": 0.139,
+          "bottomk_J": 0.0943,
+          "gap": 0.1912
+        },
+        "100": {
+          "topk_J": 0.2544,
+          "random_J_mean": 0.1195,
+          "random_J_std": 0.1282,
+          "bottomk_J": 0.0263,
+          "gap": 0.1349
+        },
+        "226": {
+          "topk_J": 0.0066,
+          "random_J_mean": 0.0066,
+          "random_J_std": 0.0,
+          "bottomk_J": 0.0066,
+          "gap": 0.0
+        }
+      },
+      "top_10_links": [
+        {
+          "link": "B0:81:84:05:DA:BC->94:A9:90:6A:A1:AC",
+          "auc": 0.7909
+        },
+        {
+          "link": "B0:81:84:05:DA:BC->94:A9:90:6D:FB:B8",
+          "auc": 0.779
+        },
+        {
+          "link": "B0:81:84:06:11:C0->B0:81:84:05:D9:90",
+          "auc": 0.7768
+        },
+        {
+          "link": "B0:81:84:05:DA:BC->B0:81:84:05:E2:28",
+          "auc": 0.7682
+        },
+        {
+          "link": "94:A9:90:6C:D9:50->94:A9:90:6A:B1:1C",
+          "auc": 0.7613
+        },
+        {
+          "link": "B0:81:84:05:DA:BC->B0:81:84:05:EC:68",
+          "auc": 0.7584
+        },
+        {
+          "link": "B0:81:84:05:DA:BC->94:A9:90:6C:D9:50",
+          "auc": 0.7555
+        },
+        {
+          "link": "B0:81:84:06:11:C0->B0:81:84:05:EC:68",
+          "auc": 0.7545
+        },
+        {
+          "link": "B0:81:84:05:DA:BC->B0:81:84:05:D9:90",
+          "auc": 0.7528
+        },
+        {
+          "link": "94:A9:90:6C:D9:50->B0:81:84:05:E5:68",
+          "auc": 0.7504
+        }
+      ]
+    }
+  }
+}

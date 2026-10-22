@@ -1,0 +1,22 @@
+% One sounding, many measurements: an access point (sensing initiator) sends a
+% sounding that several responders measure; each sounding costs airtime once.
+\begin{tikzpicture}[x=1cm, y=1cm, font=\footnotesize\sffamily,
+    dev/.style={rectangle, rounded corners=2pt, draw=black!50, fill=black!4, line width=0.5pt,
+                minimum width=1.75cm, minimum height=0.55cm, align=center},
+    ap/.style={dev, fill=cbBlueF, draw=cbBlueD, minimum height=1.0cm},
+    wave/.style={-{Stealth[length=1.4mm, width=1.1mm]}, line width=0.6pt, draw=cbBlueD},
+    rep/.style={-{Stealth[length=1.2mm, width=1mm]}, line width=0.4pt, draw=black!45, densely dashed},
+]
+\definecolor{cbBlueD}{RGB}{0,114,178}\colorlet{cbBlueF}{cbBlueD!10}
+\node[ap] (ap) at (0,0) {Access point\\(initiator)};
+\node[dev] (tv) at (4.9,0.8) {Television};
+\node[dev] (ph) at (4.9,0) {Phone};
+\node[dev] (sp) at (4.9,-0.8) {Speaker};
+\foreach \d in {tv,ph,sp} {
+  \draw[wave] (ap.east) -- (\d.west);
+  \draw[rep] ([yshift=-1.5pt]\d.west) -- ([yshift=-1.5pt]ap.east);
+}
+\node[align=center, text=cbBlueD] at (2.45,1.35) {one sounding, airtime spent once};
+\node[align=center, text=black!75] at (2.45,-1.4) {each responder measures CSI and reports};
+\node[align=left, anchor=west, text=black!75] at (5.9,0) {$K{=}3$\\pairs};
+\end{tikzpicture}

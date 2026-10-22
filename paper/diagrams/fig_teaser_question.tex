@@ -1,0 +1,34 @@
+% Teaser panel (a): the same airtime (8 soundings per second on one channel)
+% spent on 2 pairs sounded fast or on 8 pairs sounded slowly. Each slot is
+% coloured by the pair it serves; the room sketch shows the pairs it covers.
+\begin{tikzpicture}[x=1cm, y=1cm, font=\footnotesize\sffamily]
+\definecolor{p1}{RGB}{0,114,178}\definecolor{p2}{RGB}{213,94,0}\definecolor{p3}{RGB}{0,158,115}
+\definecolor{p4}{RGB}{204,121,167}\definecolor{p5}{RGB}{230,159,0}\definecolor{p6}{RGB}{86,180,233}
+\definecolor{p7}{RGB}{120,120,120}\definecolor{p8}{RGB}{240,228,66}
+\tikzset{slot/.style={minimum width=0.36cm, minimum height=0.36cm, inner sep=0, draw=white, line width=0.6pt},
+         dev/.style={circle, fill=black!70, inner sep=0, minimum size=3pt},
+         link/.style={line width=0.9pt}}
+% time axis
+\draw[-{Stealth[length=1.4mm]}, black!50] (0,3.05) -- (3.05,3.05) node[right, black!70] {1\,s};
+\node[anchor=west, black!75] at (0,3.3) {One channel, 8 soundings per second};
+% row A: 2 pairs, each sounded 4 times
+\node[anchor=west, font=\footnotesize\sffamily\bfseries] at (0,2.6) {Few pairs, fast};
+\foreach \i/\c in {0/p1,1/p2,2/p1,3/p2,4/p1,5/p2,6/p1,7/p2}
+  \node[slot, fill=\c] at ({0.18+0.37*\i},2.15) {};
+% row B: 8 pairs, each sounded once
+\node[anchor=west, font=\footnotesize\sffamily\bfseries] at (0,1.35) {Many pairs, slow};
+\foreach \i/\c in {0/p1,1/p2,2/p3,3/p4,4/p5,5/p6,6/p7,7/p8}
+  \node[slot, fill=\c] at ({0.18+0.37*\i},0.9) {};
+% room sketches: six wall nodes
+\foreach \row/\y in {A/1.7, B/0.45} {
+  \draw[black!45, line width=0.5pt] (3.45,\y) rectangle (4.95,{\y+0.95});
+  \coordinate (\row1) at (3.45,{\y+0.2}); \coordinate (\row2) at (3.45,{\y+0.75});
+  \coordinate (\row3) at (4.2,{\y+0.95}); \coordinate (\row4) at (4.95,{\y+0.75});
+  \coordinate (\row5) at (4.95,{\y+0.2}); \coordinate (\row6) at (4.2,\y);
+}
+\draw[link, p1] (A1) -- (A4); \draw[link, p2] (A2) -- (A5);
+\draw[link, p1] (B1) -- (B4); \draw[link, p2] (B2) -- (B5); \draw[link, p3] (B3) -- (B6);
+\draw[link, p4] (B1) -- (B3); \draw[link, p5] (B3) -- (B5); \draw[link, p6] (B2) -- (B6);
+\draw[link, p7] (B6) -- (B4); \draw[link, p8] (B1) -- (B5);
+\foreach \row in {A,B} \foreach \k in {1,...,6} \node[dev] at (\row\k) {};
+\end{tikzpicture}
