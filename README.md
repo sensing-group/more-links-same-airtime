@@ -12,7 +12,8 @@ calibration (label-free detectors need a longer empty-room reference) and privac
 schedule reveals occupancy).
 
 **Dataset:** CSI from a 14-node office mesh (27 sessions) and six scripted trials in a living room
-and a laboratory, on Zenodo (DOI to be added). Place it under `data/` as described below.
+and a laboratory, on Zenodo: https://doi.org/10.5281/zenodo.23574119. Place it under `data/` as
+described below. This code is archived at https://doi.org/10.5281/zenodo.23574129.
 
 ## Earlier version
 
