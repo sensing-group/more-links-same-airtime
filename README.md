@@ -65,47 +65,6 @@ License: MIT.
 | `data/` | Place the dataset here: `data/office/sessions/`, `data/office/features/` and `data/trials/` |
 | `tdma-mesh/` | The earlier TDMA recorder and the preprint's analysis (see its README) |
 
-## Reproducing the figures and tables
-
-```
-pip install -r requirements.txt
-cd paper
-for s in fig_*.py make_tab_*.py; do python3 $s; done   # writes ../figures/
-```
-
-The scripts regenerate the plots of Figs. 2 and 5-11 and Tables 3 and 4 of the paper from
-`results/`, identical to the submitted figures. Figs. 1, 3 and 4 and the left half of Fig. 2 are
-photographs and diagrams.
-
-## Reproducing the analyses
-
-`run_all.sh` runs every step in order; each step writes one file or folder under `work/`.
-The office steps stream one session at a time and cap their memory (`ghost_eval/memlimit.py`).
-Plan on a machine with 16 GB of RAM, and set `OPENBLAS_NUM_THREADS=1` when running steps in
-parallel.
-
-| Paper item | Script | Output in `results/` |
-|---|---|---|
-| Table 3 (trial rows), Figs. 2 and 6, §5 | `scripted_trial_decision_windows.py` (default, `TASKS=presence`, `--budget-unit tx`, `--classifier hgb`) | `scripted_trial_decision_windows*.json` |
-| Table 3 (office rows), Figs. 2, 5 and 6, time-only control | `extract_rate_decimated_features.py` (decision windows), then `decision_window_ablation.py --window W` | `decision_windows/decision_window_ablation_w<W>s.json` |
-| Fig. 7 | `sounding_correlation_analysis.py` | `sounding_correlation.json` |
-| Fig. 8 | `scripted_trial_decision_windows.py` and `--budget-unit tx` | `scripted_trial_decision_windows.json`, `scripted_trial_decision_windows_tx.json` |
-| Fig. 9, §6 | `calibration_reference_analysis.py`, `calibration_model.py` | `calibration_reference.json`, `calibration_model.json` |
-| Fig. 10, §7 | `extract_rate_decimated_features.py` (60 s), `rate_decimation_ablation.py`, `schedule_leak_analysis.py` | `rate_decimated/rate_decimation_ablation.json`, `schedule_leak.json` |
-| Table 4, Fig. 11, §8 | `extract_dataset_release_features.py`, `threshold_practices_analysis.py`, `rate_decimation_ablation.py` | `threshold_practices.json`, `rate_decimated/rate_decimation_ablation.json` |
-| §4 counts and phase-order control | `office_session_stats.py`, `trial_window_counts.py`, `trial_phase_order_check.py` | `office_session_stats.json`, `trial_window_counts.json`, `trial_phase_order_check.json` |
-| §5, neural network | `neural_budget_check.py` (`INPUT_MODE=calibrated` and `dynamic`) | `neural_budget_check*.json` |
-| §10, radio floor | `radio_noise_floor_analysis.py` | `radio_noise_floor.json` |
-| §10 (dropped apartment site) | `apartment_budget_features.py` on Zenodo 10.5281/zenodo.18486249 | not shipped |
-
-The office analyses pair every occupied window with an empty window of the same fold and the
-same quarter hour of the day, over 10 draws, so the time of day cannot separate the classes
-(`--empty-match time`, the default; `--empty-match none` gives the unmatched protocol).
-
-The office decision-window extraction keeps the 44 links in
-`results/decision_window_link_whitelist.json`; `decision_window_ablation.py` then fixes, without
-labels, the 16 of them most often available in 5 s windows.
-
 ## Citation
 
 See `CITATION.cff`. The preprint can be cited as arXiv:2602.10823.
