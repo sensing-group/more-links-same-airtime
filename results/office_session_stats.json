@@ -1,0 +1,23 @@
+{
+  "rate_and_counts": {
+    "n_sessions": 27,
+    "median_session_rate_hz": 1.7833333333333334,
+    "session_rate_range_hz": [
+      0.35,
+      7.55
+    ],
+    "labeled_windows": 9913,
+    "occupied_windows": 159,
+    "sessions_with_occupied": 9,
+    "sessions_occupied_throughout": 2
+  },
+  "pairs": {
+    "pairs": 226,
+    "node_ids": 16,
+    "self_records": 14,
+    "raw_amp_var_largest_pair_median": 537.2476806640625,
+    "raw_amp_var_median_pair": 0.15820595622062683,
+    "top_argmax_pairs_share": 0.42557503293140136,
+    "windows_scored": 9869
+  }
+}

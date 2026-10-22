@@ -1,0 +1,67 @@
+{
+  "empty_match": "time",
+  "n_draws": 10,
+  "n_windows": 9913,
+  "n_occupied": 159,
+  "n_sessions": 27,
+  "n_pairs": 228,
+  "availability_occupied": 0.4351,
+  "availability_empty": 0.229,
+  "sessions_with_both_classes": 7,
+  "sessions_occupied_higher": 5,
+  "per_session_availability_occupied_empty": [
+    [
+      0.3308,
+      0.3176
+    ],
+    [
+      0.7851,
+      0.7437
+    ],
+    [
+      0.7237,
+      0.6276
+    ],
+    [
+      0.6066,
+      0.5922
+    ],
+    [
+      0.4371,
+      0.4135
+    ],
+    [
+      0.2752,
+      0.2951
+    ],
+    [
+      0.1645,
+      0.1673
+    ]
+  ],
+  "available_pair_count_auc": 0.8508,
+  "available_pair_count_auc_draw_sd": 0.0184,
+  "available_pair_count_auc_within_session": [
+    0.599,
+    0.9333,
+    0.9,
+    0.6136,
+    0.6,
+    0.4,
+    0.5125
+  ],
+  "within_session_sessions": [
+    "20260213_211853",
+    "20260214_144422",
+    "20260214_173038",
+    "20260214_174225",
+    "20260218_094750",
+    "20260220_000010",
+    "20260221_000009"
+  ],
+  "pattern_vs_csi_k": 100,
+  "pattern_only_auc_session_grouped": 0.6116,
+  "csi_auc_session_grouped": 0.6739,
+  "pattern_only_auc_stratified": 0.9159,
+  "csi_auc_stratified": 0.9566
+}

@@ -43,7 +43,7 @@ firmware/esp-idf/sdkconfig.old
 data/
 
 # Results (regeneratable)
-results/
+tdma-mesh/dilution-preprint-analysis/results/
 figures/
 *.png
 *.pdf

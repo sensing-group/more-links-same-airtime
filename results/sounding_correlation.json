@@ -1,0 +1,84 @@
+{
+  "grid_hz": 8.0,
+  "rolling_s": 5.0,
+  "trials": [
+    "T0003_residence",
+    "T0004_residence",
+    "T0008_laboratory",
+    "T0009_laboratory",
+    "T0010_laboratory",
+    "T0011_laboratory"
+  ],
+  "phases": {
+    "occupied_static": {
+      "within_pair_median_corr": {
+        "0.125": 0.7952,
+        "0.25": 0.6798,
+        "0.5": 0.5357,
+        "1": 0.322,
+        "2": -0.0161
+      },
+      "within_pair_median_abs_corr": {
+        "0.125": 0.7952,
+        "0.25": 0.6798,
+        "0.5": 0.5357,
+        "1": 0.322,
+        "2": 0.0264
+      },
+      "across_pairs_median_corr": {
+        "same_transmitter": 0.6365,
+        "same_receiver": 0.6324,
+        "node_in_other_role": 0.6374,
+        "no_shared_node": 0.6329
+      },
+      "across_pairs_median_abs_corr": {
+        "same_transmitter": 0.6365,
+        "same_receiver": 0.6324,
+        "node_in_other_role": 0.6374,
+        "no_shared_node": 0.6329
+      },
+      "n_couples": {
+        "same_transmitter": 789,
+        "same_receiver": 775,
+        "node_in_other_role": 1696,
+        "no_shared_node": 3940
+      },
+      "n_pairs": 333
+    },
+    "occupied_moving": {
+      "within_pair_median_corr": {
+        "0.125": 0.8358,
+        "0.25": 0.7178,
+        "0.5": 0.5462,
+        "1": 0.3146,
+        "2": -0.0305
+      },
+      "within_pair_median_abs_corr": {
+        "0.125": 0.8358,
+        "0.25": 0.7178,
+        "0.5": 0.5462,
+        "1": 0.3146,
+        "2": 0.0399
+      },
+      "across_pairs_median_corr": {
+        "same_transmitter": 0.6294,
+        "same_receiver": 0.628,
+        "node_in_other_role": 0.6343,
+        "no_shared_node": 0.6278
+      },
+      "across_pairs_median_abs_corr": {
+        "same_transmitter": 0.6294,
+        "same_receiver": 0.628,
+        "node_in_other_role": 0.6343,
+        "no_shared_node": 0.6278
+      },
+      "n_couples": {
+        "same_transmitter": 784,
+        "same_receiver": 777,
+        "node_in_other_role": 1716,
+        "no_shared_node": 3923
+      },
+      "n_pairs": 336
+    }
+  }
+}

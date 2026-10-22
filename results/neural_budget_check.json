@@ -1,0 +1,367 @@
+{
+  "timestamp": "2026-10-22T14:32:24",
+  "trials": [
+    "T0003_residence",
+    "T0004_residence",
+    "T0008_laboratory",
+    "T0009_laboratory",
+    "T0010_laboratory",
+    "T0011_laboratory"
+  ],
+  "input_mode": "calibrated",
+  "decision_window_s": 5.0,
+  "budget_hz": 8.0,
+  "splits": [
+    [
+      1,
+      8.0
+    ],
+    [
+      2,
+      4.0
+    ],
+    [
+      4,
+      2.0
+    ],
+    [
+      8,
+      1.0
+    ],
+    [
+      16,
+      0.5
+    ]
+  ],
+  "complete_pairs_per_trial": {
+    "T0003_residence": 44,
+    "T0004_residence": 52,
+    "T0008_laboratory": 49,
+    "T0009_laboratory": 50,
+    "T0010_laboratory": 45,
+    "T0011_laboratory": 46
+  },
+  "model": {
+    "type": "shared conv1d pair encoder, mean+max pair pooling, linear head",
+    "n_parameters": 10273,
+    "conv_channels": 32,
+    "conv_kernel": 3,
+    "embed_dim": 32,
+    "epochs": 60,
+    "batch_size": 32,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "input_clip": 10.0,
+    "n_subsets": 5,
+    "n_seeds": 3,
+    "seed": 42,
+    "torch_version": "2.5.1+cpu",
+    "torch_threads": 2
+  },
+  "lr_sources": [
+    "results/scripted_trial_decision_windows.json",
+    "results/scripted_trial_decision_windows_presence.json"
+  ],
+  "results": {
+    "occupancy|1|8": {
+      "task": "occupancy",
+      "pairs": 1,
+      "rate_hz": 8.0,
+      "frames_per_pair": 40,
+      "n_subsets": 5,
+      "neural_auc": 0.8994,
+      "neural_auc_sd_over_folds_subsets": 0.1355,
+      "neural_auc_by_trial": {
+        "T0003_residence": 0.8573,
+        "T0004_residence": 0.949,
+        "T0008_laboratory": 0.7774,
+        "T0009_laboratory": 0.9523,
+        "T0010_laboratory": 0.9305,
+        "T0011_laboratory": 0.93
+      },
+      "neural_auc_vs_opening_empty": 0.9125,
+      "neural_auc_vs_final_empty": 0.888,
+      "lr_auc": 0.7253,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.7019,
+        "T0004_residence": 0.7046,
+        "T0008_laboratory": 0.716,
+        "T0009_laboratory": 0.7029,
+        "T0010_laboratory": 0.7457,
+        "T0011_laboratory": 0.7805
+      }
+    },
+    "occupancy|2|4": {
+      "task": "occupancy",
+      "pairs": 2,
+      "rate_hz": 4.0,
+      "frames_per_pair": 20,
+      "n_subsets": 5,
+      "neural_auc": 0.961,
+      "neural_auc_sd_over_folds_subsets": 0.1102,
+      "neural_auc_by_trial": {
+        "T0003_residence": 0.9962,
+        "T0004_residence": 0.9985,
+        "T0008_laboratory": 0.9176,
+        "T0009_laboratory": 0.9549,
+        "T0010_laboratory": 0.999,
+        "T0011_laboratory": 0.8995
+      },
+      "neural_auc_vs_opening_empty": 0.9722,
+      "neural_auc_vs_final_empty": 0.9482,
+      "lr_auc": 0.8549,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.8587,
+        "T0004_residence": 0.8962,
+        "T0008_laboratory": 0.8621,
+        "T0009_laboratory": 0.8033,
+        "T0010_laboratory": 0.8316,
+        "T0011_laboratory": 0.8778
+      }
+    },
+    "occupancy|4|2": {
+      "task": "occupancy",
+      "pairs": 4,
+      "rate_hz": 2.0,
+      "frames_per_pair": 10,
+      "n_subsets": 5,
+      "neural_auc": 0.9748,
+      "neural_auc_sd_over_folds_subsets": 0.0576,
+      "neural_auc_by_trial": {
+        "T0003_residence": 0.9839,
+        "T0004_residence": 0.9913,
+        "T0008_laboratory": 0.9119,
+        "T0009_laboratory": 0.9965,
+        "T0010_laboratory": 0.986,
+        "T0011_laboratory": 0.9791
+      },
+      "neural_auc_vs_opening_empty": 0.9854,
+      "neural_auc_vs_final_empty": 0.9601,
+      "lr_auc": 0.906,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.9031,
+        "T0004_residence": 0.9499,
+        "T0008_laboratory": 0.8997,
+        "T0009_laboratory": 0.888,
+        "T0010_laboratory": 0.9164,
+        "T0011_laboratory": 0.8788
+      }
+    },
+    "occupancy|8|1": {
+      "task": "occupancy",
+      "pairs": 8,
+      "rate_hz": 1.0,
+      "frames_per_pair": 5,
+      "n_subsets": 5,
+      "neural_auc": 0.9921,
+      "neural_auc_sd_over_folds_subsets": 0.0266,
+      "neural_auc_by_trial": {
+        "T0003_residence": 1.0,
+        "T0004_residence": 0.9998,
+        "T0008_laboratory": 0.9948,
+        "T0009_laboratory": 0.9994,
+        "T0010_laboratory": 0.9913,
+        "T0011_laboratory": 0.9675
+      },
+      "neural_auc_vs_opening_empty": 0.9981,
+      "neural_auc_vs_final_empty": 0.9856,
+      "lr_auc": 0.9228,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.9495,
+        "T0004_residence": 0.9669,
+        "T0008_laboratory": 0.8996,
+        "T0009_laboratory": 0.9052,
+        "T0010_laboratory": 0.9124,
+        "T0011_laboratory": 0.903
+      }
+    },
+    "occupancy|16|0.5": {
+      "task": "occupancy",
+      "pairs": 16,
+      "rate_hz": 0.5,
+      "frames_per_pair": 2,
+      "n_subsets": 5,
+      "neural_auc": 0.9844,
+      "neural_auc_sd_over_folds_subsets": 0.0413,
+      "neural_auc_by_trial": {
+        "T0003_residence": 1.0,
+        "T0004_residence": 0.9992,
+        "T0008_laboratory": 0.9271,
+        "T0009_laboratory": 0.9925,
+        "T0010_laboratory": 0.9962,
+        "T0011_laboratory": 0.9912
+      },
+      "neural_auc_vs_opening_empty": 0.9976,
+      "neural_auc_vs_final_empty": 0.9632,
+      "lr_auc": 0.9365,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.9833,
+        "T0004_residence": 0.9843,
+        "T0008_laboratory": 0.9045,
+        "T0009_laboratory": 0.9051,
+        "T0010_laboratory": 0.9251,
+        "T0011_laboratory": 0.9169
+      }
+    },
+    "presence|1|8": {
+      "task": "presence",
+      "pairs": 1,
+      "rate_hz": 8.0,
+      "frames_per_pair": 40,
+      "n_subsets": 5,
+      "neural_auc": 0.7086,
+      "neural_auc_sd_over_folds_subsets": 0.3492,
+      "neural_auc_by_trial": {
+        "T0003_residence": 0.7719,
+        "T0004_residence": 0.738,
+        "T0008_laboratory": 0.5231,
+        "T0009_laboratory": 0.552,
+        "T0010_laboratory": 0.7087,
+        "T0011_laboratory": 0.9577
+      },
+      "neural_auc_vs_opening_empty": 0.726,
+      "neural_auc_vs_final_empty": 0.6947,
+      "lr_auc": 0.5302,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.5304,
+        "T0004_residence": 0.4989,
+        "T0008_laboratory": 0.5422,
+        "T0009_laboratory": 0.4699,
+        "T0010_laboratory": 0.5508,
+        "T0011_laboratory": 0.5888
+      }
+    },
+    "presence|2|4": {
+      "task": "presence",
+      "pairs": 2,
+      "rate_hz": 4.0,
+      "frames_per_pair": 20,
+      "n_subsets": 5,
+      "neural_auc": 0.9009,
+      "neural_auc_sd_over_folds_subsets": 0.2116,
+      "neural_auc_by_trial": {
+        "T0003_residence": 0.904,
+        "T0004_residence": 0.9212,
+        "T0008_laboratory": 0.9972,
+        "T0009_laboratory": 0.9176,
+        "T0010_laboratory": 0.9877,
+        "T0011_laboratory": 0.6774
+      },
+      "neural_auc_vs_opening_empty": 0.9123,
+      "neural_auc_vs_final_empty": 0.8886,
+      "lr_auc": 0.7219,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.6963,
+        "T0004_residence": 0.8019,
+        "T0008_laboratory": 0.666,
+        "T0009_laboratory": 0.6675,
+        "T0010_laboratory": 0.7395,
+        "T0011_laboratory": 0.7599
+      }
+    },
+    "presence|4|2": {
+      "task": "presence",
+      "pairs": 4,
+      "rate_hz": 2.0,
+      "frames_per_pair": 10,
+      "n_subsets": 5,
+      "neural_auc": 0.9422,
+      "neural_auc_sd_over_folds_subsets": 0.1567,
+      "neural_auc_by_trial": {
+        "T0003_residence": 0.9844,
+        "T0004_residence": 0.9893,
+        "T0008_laboratory": 0.974,
+        "T0009_laboratory": 0.8736,
+        "T0010_laboratory": 0.9709,
+        "T0011_laboratory": 0.8609
+      },
+      "neural_auc_vs_opening_empty": 0.9498,
+      "neural_auc_vs_final_empty": 0.9341,
+      "lr_auc": 0.8019,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.794,
+        "T0004_residence": 0.9018,
+        "T0008_laboratory": 0.7911,
+        "T0009_laboratory": 0.7381,
+        "T0010_laboratory": 0.8519,
+        "T0011_laboratory": 0.7345
+      }
+    },
+    "presence|8|1": {
+      "task": "presence",
+      "pairs": 8,
+      "rate_hz": 1.0,
+      "frames_per_pair": 5,
+      "n_subsets": 5,
+      "neural_auc": 0.9808,
+      "neural_auc_sd_over_folds_subsets": 0.0563,
+      "neural_auc_by_trial": {
+        "T0003_residence": 0.9507,
+        "T0004_residence": 0.9737,
+        "T0008_laboratory": 0.9759,
+        "T0009_laboratory": 0.9967,
+        "T0010_laboratory": 1.0,
+        "T0011_laboratory": 0.988
+      },
+      "neural_auc_vs_opening_empty": 0.9868,
+      "neural_auc_vs_final_empty": 0.9738,
+      "lr_auc": 0.8677,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.8994,
+        "T0004_residence": 0.9519,
+        "T0008_laboratory": 0.8327,
+        "T0009_laboratory": 0.8089,
+        "T0010_laboratory": 0.8886,
+        "T0011_laboratory": 0.8247
+      }
+    },
+    "presence|16|0.5": {
+      "task": "presence",
+      "pairs": 16,
+      "rate_hz": 0.5,
+      "frames_per_pair": 2,
+      "n_subsets": 5,
+      "neural_auc": 0.9893,
+      "neural_auc_sd_over_folds_subsets": 0.0328,
+      "neural_auc_by_trial": {
+        "T0003_residence": 0.9938,
+        "T0004_residence": 0.9901,
+        "T0008_laboratory": 0.9595,
+        "T0009_laboratory": 0.9997,
+        "T0010_laboratory": 0.9996,
+        "T0011_laboratory": 0.9933
+      },
+      "neural_auc_vs_opening_empty": 0.9964,
+      "neural_auc_vs_final_empty": 0.9777,
+      "lr_auc": 0.8931,
+      "lr_auc_by_trial": {
+        "T0003_residence": 0.9521,
+        "T0004_residence": 0.9837,
+        "T0008_laboratory": 0.8534,
+        "T0009_laboratory": 0.8241,
+        "T0010_laboratory": 0.9031,
+        "T0011_laboratory": 0.8425
+      }
+    }
+  },
+  "wins_16_over_1": {
+    "occupancy|neural": {
+      "many_slow_beats_one_fast": 6,
+      "n_trials": 6
+    },
+    "occupancy|lr": {
+      "many_slow_beats_one_fast": 6,
+      "n_trials": 6
+    },
+    "presence|neural": {
+      "many_slow_beats_one_fast": 6,
+      "n_trials": 6
+    },
+    "presence|lr": {
+      "many_slow_beats_one_fast": 6,
+      "n_trials": 6
+    }
+  },
+  "runtime_s": 1561.8,
+  "peak_rss_gb": 1.344
+}

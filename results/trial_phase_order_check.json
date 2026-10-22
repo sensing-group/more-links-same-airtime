@@ -1,0 +1,75 @@
+{
+  "decision_window_s": 5.0,
+  "trials": [
+    "T0003_residence",
+    "T0004_residence",
+    "T0008_laboratory",
+    "T0009_laboratory",
+    "T0010_laboratory",
+    "T0011_laboratory"
+  ],
+  "position_only": {
+    "occupancy": {
+      "all": 0.9794,
+      "opening_empty": 0.9803,
+      "final_empty": 0.9845
+    },
+    "presence": {
+      "all": 0.9998,
+      "opening_empty": 1.0,
+      "final_empty": 0.9996
+    }
+  },
+  "classifier": {
+    "occupancy|1|8": {
+      "all": 0.7449,
+      "opening_empty": 0.7436,
+      "final_empty": 0.7466
+    },
+    "occupancy|2|4": {
+      "all": 0.8415,
+      "opening_empty": 0.8487,
+      "final_empty": 0.8342
+    },
+    "occupancy|4|2": {
+      "all": 0.8978,
+      "opening_empty": 0.9069,
+      "final_empty": 0.8883
+    },
+    "occupancy|8|1": {
+      "all": 0.9379,
+      "opening_empty": 0.9445,
+      "final_empty": 0.9314
+    },
+    "occupancy|16|0.5": {
+      "all": 0.9394,
+      "opening_empty": 0.9501,
+      "final_empty": 0.9287
+    },
+    "presence|1|8": {
+      "all": 0.5649,
+      "opening_empty": 0.5636,
+      "final_empty": 0.5674
+    },
+    "presence|2|4": {
+      "all": 0.7466,
+      "opening_empty": 0.7523,
+      "final_empty": 0.7424
+    },
+    "presence|4|2": {
+      "all": 0.8086,
+      "opening_empty": 0.8172,
+      "final_empty": 0.8013
+    },
+    "presence|8|1": {
+      "all": 0.8719,
+      "opening_empty": 0.8858,
+      "final_empty": 0.8576
+    },
+    "presence|16|0.5": {
+      "all": 0.8923,
+      "opening_empty": 0.9078,
+      "final_empty": 0.877
+    }
+  }
+}
