@@ -7,7 +7,7 @@ WORK="${WORK:-$ROOT/work}"
 WORKERS="${WORKERS:-2}"
 export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
 export TRIALS_DIR="$DATA/trials"
-mkdir -p "$WORK/decision_windows/unmatched_none" "$WORK/rate_decimated" "$WORK/features"
+mkdir -p "$WORK/decision_windows/unmatched_none" "$WORK/rate_decimated" "$WORK/features" "$WORK/history"
 cd "$ROOT"
 
 # Office, decision windows on a fixed budget: Table 3, Figs. 2, 5 and 6

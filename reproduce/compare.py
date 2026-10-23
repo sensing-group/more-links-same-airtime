@@ -26,6 +26,10 @@ PAPER_ATOL = 0.005
 MAX_REPORTED = 10   # mismatching values printed per file
 # Outputs of optional steps (reproduce/apartment.sh needs the apartment labels): reported, not required
 OPTIONAL = ("apartment/",)
+# Inputs shipped in results/ that the pipeline reads rather than writes
+INPUTS = ("decision_window_link_whitelist.json",)
+# Run metadata (wall time, memory) that differs between machines: not compared
+RUN_METADATA = ("seconds", "peak_rss_mb")
 
 
 def leaves(x, path=""):
@@ -63,13 +67,15 @@ def main() -> int:
         rel = ref.relative_to(results)
         if a.only is not None and not str(rel).startswith(tuple(a.only)):
             continue
+        if str(rel) in INPUTS:
+            continue
         mine = work / rel
         if not mine.exists():
             optional = str(rel).startswith(OPTIONAL)
             print(f"{'SKIPPED ' if optional else 'MISSING '} {rel}{' (optional step not run)' if optional else ''}")
             total_missing += not optional
             continue
-        want = dict(leaves(json.loads(ref.read_text())))
+        want = {k: v for k, v in leaves(json.loads(ref.read_text())) if k.rsplit("/", 1)[-1] not in RUN_METADATA}
         got = dict(leaves(json.loads(mine.read_text())))
         absent = sorted(set(want) - set(got))
         bad = [(k, want[k], got[k]) for k in want if k in got and not close(got[k], want[k], a.atol, a.rtol)]

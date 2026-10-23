@@ -79,7 +79,7 @@ def main() -> None:
             ok = np.isfinite(Z[li]) & ~cal
             tx, rx = lid.split("->")
             rows.append({"trial": tdir.name, "pair": lid, "tx": family(tx), "rx": family(rx),
-                         "empty_floor": floor, "empty_floor_rel": floor_rel, "mean_amp": float(amp.mean()),
+                         "empty_floor": floor, "empty_floor_rel": floor_rel, "mean_amp": float(amp.mean(dtype=np.float64)),
                          "presence_auc": class_auc(Z[li], labels, ok, "occupied_static"),
                          "walking_auc": class_auc(Z[li], labels, ok, "occupied_moving")})
         print(f"{tdir.name}: {len(lids)} pairs", flush=True)

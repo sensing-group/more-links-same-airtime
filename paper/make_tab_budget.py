@@ -10,7 +10,7 @@ import os
 from pathlib import Path
 
 ANALYSIS_DIR = Path(os.environ.get("ANALYSIS_DIR", str(Path(__file__).resolve().parent.parent / "results")))
-OUT = Path(__file__).resolve().parent.parent / "figures" / "tab_budget.tex"
+OUT = Path(os.environ.get("FIG_DIR", Path(__file__).resolve().parent.parent / "figures")) / "tab_budget.tex"
 OFFICE = "decision_windows/decision_window_ablation_w{w}s.json"
 TRIALS = {"occupancy": "scripted_trial_decision_windows.json", "motion": "scripted_trial_decision_windows.json",
           "presence": "scripted_trial_decision_windows_presence.json"}

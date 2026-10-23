@@ -1,9 +1,10 @@
 """Shared figure style: every plot is drawn at its printed width in the body font."""
+import os
 from pathlib import Path
 
 import matplotlib as mpl
 
-FIG_DIR = Path(__file__).resolve().parent.parent / "figures"
+FIG_DIR = Path(os.environ.get("FIG_DIR", Path(__file__).resolve().parent.parent / "figures"))
 COLUMN_W_IN = 241.14749 / 72.27          # acmart sigconf \columnwidth
 TEXT_W_IN = 506.29498 / 72.27            # acmart sigconf \textwidth
 FONT_PT = 8

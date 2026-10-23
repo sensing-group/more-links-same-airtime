@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 ANALYSIS_DIR = Path(os.environ.get("ANALYSIS_DIR", str(Path(__file__).resolve().parent.parent / "results")))
-OUT = Path(__file__).resolve().parent.parent / "figures" / "tab_practices.tex"
+OUT = Path(os.environ.get("FIG_DIR", Path(__file__).resolve().parent.parent / "figures")) / "tab_practices.tex"
 K_ALL, K_CLASSIFIER = "226", "100"
 TIME_WINDOW = "w20s"         # decision window of the time-of-day row
 
