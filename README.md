@@ -28,21 +28,13 @@ https://doi.org/10.5281/zenodo.23574129.
 git clone https://github.com/sensing-group/more-links-same-airtime
 cd more-links-same-airtime
 pip install -r requirements.txt
-cd paper && for s in fig_*.py make_tab_*.py; do python3 $s; done   # figures and tables into ../figures/
+./reproduce/figures.sh   # figures and tables into figures/
 ```
 
 This redraws every plotted figure and Tables 3 and 4 from the shipped analysis outputs in
-`results/`, without the dataset. To rerun the analyses themselves, fetch the dataset (21 GB) into
-`data/` and run `run_all.sh`:
-
-```
-mkdir -p data && cd data
-for f in office-sessions-1.tar office-sessions-2.tar office-sessions-3.tar office-features-labels.tar trials.tar SHA256SUMS; do
-  curl -L -o $f "https://zenodo.org/records/23574119/files/$f?download=1"
-done
-sha256sum -c SHA256SUMS && for t in *.tar; do tar xf $t; done
-cd .. && ./run_all.sh
-```
+`results/`, without the dataset. To rerun the analyses, fetch the dataset with
+`reproduce/fetch_data.sh` and run `run_all.sh`; [ARTIFACT.md](ARTIFACT.md) gives the Docker image,
+runtimes and how to check the paper's numbers.
 
 ## Earlier version
 
@@ -63,6 +55,8 @@ License: MIT.
 | `scripts/` | Feature extraction and every analysis behind the paper's numbers |
 | `paper/` | Figure and table scripts; they read only `results/` |
 | `results/` | The analysis outputs the paper reports (JSON) |
+| `reproduce/` | Fetch, run, compare and claim-check scripts (see ARTIFACT.md) |
+| `history/` | Earlier analyses the paper quotes, with the code of that time |
 | `capture/` | The recorder and ESP32 firmware that captured the scripted trials, at commit `618c876`, with WiFi credentials replaced by placeholders |
 | `ghost_eval/` | Memory limit helper used by the scripts |
 | `data/` | Place the dataset here: `data/office/sessions/`, `data/office/features/` and `data/trials/` |

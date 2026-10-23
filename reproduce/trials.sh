@@ -15,7 +15,7 @@ cd "$ROOT"
 OUT_PATH="$WORK/scripted_trial_decision_windows.json" python3 scripts/scripted_trial_decision_windows.py
 TASKS=presence OUT_PATH="$WORK/scripted_trial_decision_windows.json" python3 scripts/scripted_trial_decision_windows.py
 OUT_PATH="$WORK/scripted_trial_decision_windows.json" python3 scripts/scripted_trial_decision_windows.py --budget-unit tx
-OUT_PATH="$WORK/scripted_trial_decision_windows.json" python3 scripts/scripted_trial_decision_windows.py --classifier hgb
+DECISION_WINDOWS_S=1,2,5 OUT_PATH="$WORK/scripted_trial_decision_windows.json" python3 scripts/scripted_trial_decision_windows.py --classifier hgb
 OUT_PATH="$WORK/sounding_correlation.json" python3 scripts/sounding_correlation_analysis.py
 OUT_PATH="$WORK/radio_noise_floor.json" python3 scripts/radio_noise_floor_analysis.py
 OUT_PATH="$WORK/trial_window_counts.json" python3 scripts/trial_window_counts.py

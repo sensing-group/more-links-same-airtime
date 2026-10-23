@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Short path (about an hour on a laptop CPU, see ARTIFACT.md): redraw every figure and table from
+# Short path (about 3.5 hours on one CPU core, see ARTIFACT.md): redraw every figure and table from
 # the shipped outputs, rerun all scripted-trial analyses from the 0.9 GB of trial data, and compare
 # them with the shipped outputs. Needs data/trials (reproduce/fetch_data.sh, or trials.tar alone).
 set -euo pipefail

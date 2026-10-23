@@ -57,6 +57,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CLAIMS = ROOT / "reproduce" / "claims.csv"
 RESULTS = ROOT / "results"
+# Sources written by an optional step (reproduce/apartment.sh needs private labels): skipped when absent
+OPTIONAL = ("apartment/",)
 EQ_TOL = 1e-9          # float noise allowed when comparing a rounded value with the printed one
 RELATIONS = ("<=", ">=", "<", ">", "~")
 RANGE_SEP = " to "
@@ -175,9 +177,13 @@ def main() -> int:
     if dup:
         print(f"duplicate claim ids: {', '.join(dup)}")
         return 1
-    failed = 0
+    failed = skipped = 0
     for r in rows:
         decimals = int(r["decimals"])
+        if r["source"].startswith(OPTIONAL) and not (Path(a.results) / r["source"]).exists():
+            skipped += 1
+            print(f"SKIP {r['id']:<10} [{r['section']}] \"{r['context']}\": {r['source']} not rerun (optional step)")
+            continue
         try:
             rel, want = parse_printed(r["printed"])
             got = as_list(eval(r["expr"], helpers(store, r["source"])))
@@ -191,7 +197,7 @@ def main() -> int:
             print(f"{'OK  ' if ok else 'FAIL'} {r['id']:<10} [{r['section']}] \"{r['context']}\": "
                   f"printed {r['printed']}, computed {detail}")
     print(f"\n{'ALL CLAIMS MATCH' if failed == 0 else 'NOT ALL CLAIMS MATCH'}: "
-          f"{len(rows) - failed} of {len(rows)} claims match, {failed} differ")
+          f"{len(rows) - failed - skipped} of {len(rows)} claims match, {failed} differ, {skipped} skipped")
     return 0 if failed == 0 else 1
 
 

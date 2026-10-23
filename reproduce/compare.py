@@ -29,7 +29,7 @@ OPTIONAL = ("apartment/",)
 # Inputs shipped in results/ that the pipeline reads rather than writes
 INPUTS = ("decision_window_link_whitelist.json",)
 # Run metadata (wall time, memory) that differs between machines: not compared
-RUN_METADATA = ("seconds", "peak_rss_mb")
+RUN_METADATA = ("seconds", "peak_rss_mb", "runtime_s", "peak_rss_gb")
 
 
 def leaves(x, path=""):
