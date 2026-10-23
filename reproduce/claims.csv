@@ -98,9 +98,9 @@ bud-22,5 Spending the sounding budget,from 0.68 to 0.46 at 10 s,0.68,scripted_tr
 bud-23,5 Spending the sounding budget,from 0.68 to 0.46 at 10 s,0.46,scripted_trial_decision_windows.json,"v(""results/motion|10/16|0.5/j_vote"")",2,
 bud-24,5 Spending the sounding budget,neither threshold rule ... (J at most 0.14 at any split),0.14,decision_windows/decision_window_ablation_w5s.json,"max(max(v(f""windows/w{w}s/cells/{c}/j_max"", f""decision_windows/decision_window_ablation_w{w}s.json""), v(f""windows/w{w}s/cells/{c}/j_vote"", f""decision_windows/decision_window_ablation_w{w}s.json"")) for w in (5, 10, 20, 30, 60) for c in keys(f""windows/w{w}s/cells"", f""decision_windows/decision_window_ablation_w{w}s.json""))",2,"largest J of max and vote rule over every office cell (30 s, 16 pairs at 0.25 Hz)"
 bud-25,5 Spending the sounding budget,boosted trees ... 5 s occupancy from AUC 0.82 with one pair,0.82,scripted_trial_decision_windows_hgb.json,"v(""results/occupancy|5/1|8/auc"")",2,
-bud-26,5 Spending the sounding budget,boosted trees ... to 0.95 with 16,0.95,scripted_trial_decision_windows_hgb.json,"v(""results/occupancy|5/16|0.5/auc"")",2,
-bud-27,5 Spending the sounding budget,boosted trees ... 1 s motion from 0.82,0.82,scripted_trial_decision_windows_hgb.json,"v(""results/motion|1/1|8/auc"")",2,
-bud-28,5 Spending the sounding budget,boosted trees ... to 0.94 with four,0.94,scripted_trial_decision_windows_hgb.json,"v(""results/motion|1/4|2/auc"")",2,
+bud-26,5 Spending the sounding budget,boosted trees ... to 0.93 with 16,0.93,scripted_trial_decision_windows_hgb.json,"v(""results/occupancy|5/16|0.5/auc"")",2,
+bud-27,5 Spending the sounding budget,boosted trees ... 1 s motion from 0.81,0.81,scripted_trial_decision_windows_hgb.json,"v(""results/motion|1/1|8/auc"")",2,
+bud-28,5 Spending the sounding budget,boosted trees ... to 0.93 with four,0.93,scripted_trial_decision_windows_hgb.json,"v(""results/motion|1/4|2/auc"")",2,
 bud-29,5 Spending the sounding budget,"neural network (10,273 parameters)","10,273",neural_budget_check.json,"v(""model/n_parameters"")",0,also Table 8
 bud-30,5 Spending the sounding budget,rises from AUC 0.90 with one pair,0.90,neural_budget_check.json,"v(""results/occupancy|1|8/neural_auc"")",2,
 bud-31,5 Spending the sounding budget,to 0.98 with 16 for occupancy,0.98,neural_budget_check.json,"v(""results/occupancy|16|0.5/neural_auc"")",2,
