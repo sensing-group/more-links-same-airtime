@@ -1,7 +1,7 @@
 id,section,context,printed,source,expr,decimals,note
 abs-1,Abstract,cuts detection errors in the trials by 77%,77%,scripted_trial_decision_windows.json,"100 * (1 - (1 - v(""results/occupancy|5/16|0.5/auc"")) / (1 - v(""results/occupancy|5/1|8/auc"")))",0,"errors are 1 - AUC (0.94 on 16 pairs against 0.73 on one, 5 s occupancy decisions at 8 soundings per second); also Sec 1 (the errors (1 - AUC) fall by 77%)"
 int-1,1 Introduction,one transmitter at 2 soundings per second ... AUC 0.80,0.80,scripted_trial_decision_windows_tx.json,"v(""results/occupancy|1/1|2/auc"")",2,also Sec 5 receivers paragraph (AUC 0.80 against 0.68)
-int-2,1 Introduction,against 0.68 for a single pair,0.68,scripted_trial_decision_windows.json,"v(""results/occupancy|1/1|2/auc"")",2,also Sec 5 receivers paragraph
+int-2,1 Introduction,against 0.68 for one pair,0.68,scripted_trial_decision_windows.json,"v(""results/occupancy|1/1|2/auc"")",2,also Sec 5 receivers paragraph
 int-3,1 Introduction,false-alarm rate falls from 0.68 to 0.15,0.68,calibration_model.json,"find(""cells"", window_s=5.0, reference_s=60.0, pairs=32)[""false_alarm""]",2,also Sec 6 (32 pairs it is 0.68; measured rates ... 0.68)
 int-4,1 Introduction,false-alarm rate falls from 0.68 to 0.15,0.15,calibration_model.json,"find(""cells"", window_s=5.0, reference_s=290.0, pairs=32)[""false_alarm""]",2,also Sec 6 (falls to 0.15 with 45 windows; a measured 45-window reference gave 0.15)
 int-5,1 Introduction,as the reference grows from 9 to 45 windows,9,calibration_model.json,"find(""cells"", window_s=5.0, reference_s=60.0, pairs=32)[""reference_windows""]",0,mean windows per trial in a 60 s reference (8.8); also Sec 6 (9 windows) twice
