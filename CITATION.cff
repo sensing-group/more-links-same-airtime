@@ -9,7 +9,7 @@ authors:
     given-names: Bruno
     affiliation: "Sensing Group, University of St. Gallen"
 license: MIT
-doi: 10.5281/zenodo.23574129
+doi: 10.5281/zenodo.23574128
 repository-code: "https://github.com/sensing-group/more-links-same-airtime"
 preferred-citation:
   type: conference-paper

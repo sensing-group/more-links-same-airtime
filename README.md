@@ -1,7 +1,7 @@
 # More Links, Same Airtime
 
 [![Dataset DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23574119.svg)](https://doi.org/10.5281/zenodo.23574119)
-[![Code DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23574129.svg)](https://doi.org/10.5281/zenodo.23574129)
+[![Code DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23574128.svg)](https://doi.org/10.5281/zenodo.23574128)
 [![arXiv](https://img.shields.io/badge/arXiv-2602.10823-b31b1b.svg)](https://arxiv.org/abs/2602.10823)
 
 Code for *More Links, Same Airtime: Spending a Shared Channel's Sounding Budget on WiFi Sensing*
@@ -20,7 +20,7 @@ schedule reveals occupancy).
 
 **Dataset:** CSI from a 14-node office mesh (27 sessions) and six scripted trials in a living room
 and a laboratory, on Zenodo: https://doi.org/10.5281/zenodo.23574119. This code is archived at
-https://doi.org/10.5281/zenodo.23574129.
+https://doi.org/10.5281/zenodo.23574128.
 
 ## Quick start
 
