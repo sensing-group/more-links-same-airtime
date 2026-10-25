@@ -1,7 +1,7 @@
 # Artifact: More Links, Same Airtime
 
 Paper: *More Links, Same Airtime: Spending a Shared Channel's Sounding Budget on WiFi Sensing*
-(Karim Khamaisi and Bruno Rodrigues). Code: https://github.com/sensing-group/more-links-same-airtime,
+(Karim Khamaisi, Ebrahim Azizi and Bruno Rodrigues). Code: https://github.com/sensing-group/more-links-same-airtime,
 archived at https://doi.org/10.5281/zenodo.23574128. Dataset: https://doi.org/10.5281/zenodo.23574119.
 
 Badges sought: Artifacts Available, Artifacts Evaluated (Functional), Results Reproduced.
