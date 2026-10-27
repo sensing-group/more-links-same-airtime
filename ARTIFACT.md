@@ -53,15 +53,15 @@ file of the same name under `work/` and reports each file as OK, DIFFERS or MISS
 within 1e-6; `--paper` accepts differences up to 0.005, the rounding of the paper's two decimals.
 Wall time and memory fields are not compared.
 
-`reproduce/check_claims.py` recomputes 202 numbers the paper prints (abstract, Sections 1 and 4 to 10,
-Table 3) from the outputs, rounds them as printed and compares.
+`reproduce/check_claims.py` recomputes 205 numbers the paper prints (abstract, Sections 1 and 4 to 10,
+Tables 3 and 8) from the outputs, rounds them as printed and compares.
 `reproduce/claims.csv` maps each number to its sentence, output file and key. Run it on `results/`
 (the default) to check the shipped outputs, or with `--results work` to check your rerun.
 
 `reproduce/figures.sh` redraws the plots of Figs. 2 and 5 to 11 and writes Tables 3 and 4 as LaTeX.
 
 Expected outcome of the full path, as measured on the run above: every output file OK, all nine
-plotted figures pixel-identical to the paper's, Tables 3 and 4 byte-identical, and 201 of 202
+plotted figures pixel-identical to the paper's, Tables 3 and 4 byte-identical, and 204 of 205
 claims matching with one skipped (the apartment, below).
 
 ## What maps to what
@@ -72,7 +72,7 @@ claims matching with one skipped (the apartment, below).
 | §5, Fig. 8 (receivers) | `scripted_trial_decision_windows.py --budget-unit tx` | `scripted_trial_decision_windows_tx.json` | trials |
 | §5, neural network | `neural_budget_check.py` | `neural_budget_check*.json` | trials |
 | §5, Fig. 7, noise floor | `sounding_correlation_analysis.py`, `radio_noise_floor_analysis.py` | `sounding_correlation.json`, `radio_noise_floor.json` | trials |
-| §4, trial windows, rates, phase order | `trial_window_counts.py`, `trial_sounding_rates.py`, `trial_phase_order_check.py` | `trial_*.json` | trials |
+| §4 and Table 8, trial windows and class balance, rates, phase order | `trial_window_counts.py`, `trial_sounding_rates.py`, `trial_phase_order_check.py` | `trial_*.json` | trials |
 | §6, Fig. 9 | `calibration_reference_analysis.py`, `calibration_model.py` | `calibration_*.json` | trials |
 | §4 and §5, Fig. 5, Table 3 (office) | `extract_rate_decimated_features.py`, `decision_window_ablation.py` | `decision_windows/` | full |
 | §7, Fig. 10 | `rate_decimation_ablation.py`, `schedule_leak_analysis.py` | `rate_decimated/`, `schedule_leak.json` | full |
