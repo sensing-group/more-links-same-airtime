@@ -2,7 +2,7 @@
 """Full-width figure: every allocation of a fixed budget, for each decision window.
 
 Columns: office occupancy, trial occupancy, trial motion. Top row: classifier
-AUC; bottom row: J of the label-free vote rule. A line ends where a pair would
+AUC; bottom row: J of the label-free vote rule. A line ends where a link would
 receive fewer than two soundings per decision.
 """
 import json
@@ -62,7 +62,7 @@ def main() -> None:
         axes[1, col].set_ylim(0, 0.9)
         axes[1, col].set_xscale("log", base=2)
         axes[1, col].set_xticks([1, 2, 4, 8, 16], labels=["1", "2", "4", "8", "16"])
-        axes[1, col].set_xlabel("Pairs sharing the budget")
+        axes[1, col].set_xlabel("Links sharing the budget")
         axes[0, col].legend(title="Decision", loc=legend_loc, ncol=2, fontsize=ps.SMALL_PT,
                             title_fontsize=ps.SMALL_PT, handlelength=1.2, columnspacing=0.8)
     axes[0, 0].set_ylabel("Classifier AUC")

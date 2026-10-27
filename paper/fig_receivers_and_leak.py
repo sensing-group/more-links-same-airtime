@@ -33,7 +33,7 @@ def receivers() -> None:
     tx = [per_tx[f"{t}|{w:g}"][key]["auc"] for t, w, _ in RECEIVER_CASES]
     fig, ax = plt.subplots(figsize=(ps.COLUMN_W_IN, FIG_H_IN), layout="constrained")
     x = np.arange(len(RECEIVER_CASES))
-    ax.bar(x - BAR_W / 2, pair, BAR_W, color=ps.OKABE_ITO["grey"], label="One pair")
+    ax.bar(x - BAR_W / 2, pair, BAR_W, color=ps.OKABE_ITO["grey"], label="One link")
     ax.bar(x + BAR_W / 2, tx, BAR_W, color=ps.OKABE_ITO["blue"], label="One transmitter, all receivers")
     for xi, v in zip(x + BAR_W / 2, tx):
         ax.text(xi, v + 0.01, f"{v:.2f}", ha="center", va="bottom", fontsize=ps.SMALL_PT)
@@ -57,12 +57,12 @@ def schedule_leak() -> None:
     for xi, v in enumerate(vals):
         a1.text(xi, v + 0.01, f"{v:.0%}", ha="center", va="bottom", fontsize=ps.SMALL_PT)
     a1.set_xticks([0, 1], ["Empty", "Occupied"])
-    a1.set_ylabel("Pairs sounded enough")
+    a1.set_ylabel("Links sounded enough")
     a1.set_ylim(0, 0.62)
     a1.yaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: f"{v:.0%}"))
     a1.set_title("(a) Schedule", loc="left")
     a1.grid(axis="x", visible=False)
-    names = ["Pair count\n(in session)", "Schedule\npattern", "CSI\nfeatures"]
+    names = ["Link count\n(in session)", "Schedule\npattern", "CSI\nfeatures"]
     aucs = [float(np.median(d["available_pair_count_auc_within_session"])),
             d["pattern_only_auc_session_grouped"], d["csi_auc_session_grouped"]]
     cols = [ps.OKABE_ITO["green"], ps.OKABE_ITO["green"], ps.OKABE_ITO["blue"]]

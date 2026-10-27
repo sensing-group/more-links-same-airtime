@@ -28,7 +28,7 @@ def main() -> None:
                 color=ps.OKABE_ITO[colour], label=label)
     ax.set_xscale("log")
     ax.set_xticks([1, 10, 100], labels=["1", "10", "100"])
-    ax.set_xlabel("Pairs (office mesh)")
+    ax.set_xlabel("Links (office mesh)")
     ax.set_ylabel("Threshold $J$")
     ax.set_ylim(0, 0.45)
     fig.legend(loc="outside upper center", ncol=1)

@@ -53,7 +53,7 @@ file of the same name under `work/` and reports each file as OK, DIFFERS or MISS
 within 1e-6; `--paper` accepts differences up to 0.005, the rounding of the paper's two decimals.
 Wall time and memory fields are not compared.
 
-`reproduce/check_claims.py` recomputes 207 numbers the paper prints (abstract, Sections 1 and 4 to 10,
+`reproduce/check_claims.py` recomputes 202 numbers the paper prints (abstract, Sections 1 and 4 to 10,
 Table 3) from the outputs, rounds them as printed and compares.
 `reproduce/claims.csv` maps each number to its sentence, output file and key. Run it on `results/`
 (the default) to check the shipped outputs, or with `--results work` to check your rerun.
@@ -61,7 +61,7 @@ Table 3) from the outputs, rounds them as printed and compares.
 `reproduce/figures.sh` redraws the plots of Figs. 2 and 5 to 11 and writes Tables 3 and 4 as LaTeX.
 
 Expected outcome of the full path, as measured on the run above: every output file OK, all nine
-plotted figures pixel-identical to the paper's, Tables 3 and 4 byte-identical, and 206 of 207
+plotted figures pixel-identical to the paper's, Tables 3 and 4 byte-identical, and 201 of 202
 claims matching with one skipped (the apartment, below).
 
 ## What maps to what

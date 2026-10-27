@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""False alarms of a label-free threshold against the number of pairs, for
+"""False alarms of a label-free threshold against the number of links, for
 several lengths of the empty-room reference (scripted trials, solid) and the
 finite-reference Gaussian model (dashed)."""
 import json
@@ -32,7 +32,7 @@ def main() -> None:
         ax.axhline(d["alpha"], color=ps.OKABE_ITO["grey"], linestyle=":", linewidth=0.8)
         ax.set_xscale("log", base=2)
         ax.set_xticks([1, 4, 16], labels=["1", "4", "16"])
-        ax.set_xlabel("Pairs")
+        ax.set_xlabel("Links")
         ax.set_title(f"({tag}) {w:g} s decisions", loc="left")
     axes[0].set_ylabel("False-alarm rate")
     axes[0].set_ylim(0, 1)

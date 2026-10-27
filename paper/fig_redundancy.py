@@ -22,16 +22,16 @@ def main() -> None:
     for key, label, colour in PHASES:
         lags = sorted(d[key]["within_pair_median_abs_corr"], key=float)
         ax.plot([float(x) for x in lags], [d[key]["within_pair_median_abs_corr"][x] for x in lags],
-                marker="o", color=ps.OKABE_ITO[colour], label=f"Same pair, {label.lower()}")
+                marker="o", color=ps.OKABE_ITO[colour], label=f"Same link, {label.lower()}")
     across = [v for key, _, _ in PHASES for v in d[key]["across_pairs_median_abs_corr"].values()]
     level = sum(across) / len(across)
     ax.axhline(level, color=ps.OKABE_ITO["black"], linestyle="--", linewidth=0.8)
-    ax.text(2.0, level + 0.02, "two different pairs, same instant", ha="right", va="bottom",
+    ax.text(2.0, level + 0.02, "two different links, same instant", ha="right", va="bottom",
             fontsize=ps.SMALL_PT, color=ps.OKABE_ITO["black"])
     ax.axhline(0, color=ps.OKABE_ITO["grey"], linewidth=0.6)
     ax.set_xscale("log", base=2)
     ax.set_xticks([0.125, 0.25, 0.5, 1, 2], labels=["0.125", "0.25", "0.5", "1", "2"])
-    ax.set_xlabel("Time between soundings of a pair (s)")
+    ax.set_xlabel("Time between soundings of a link (s)")
     ax.set_ylabel("Absolute correlation")
     ax.set_ylim(-0.1, 1.0)
     ax.legend(loc="lower left")

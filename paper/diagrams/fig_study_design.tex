@@ -26,12 +26,12 @@
 \node[rec] (r2) at (\xA,\yB) {Trials: 6 runs, 8 nodes,\\4 rooms, fixed};
 
 \node[stage] at (\xB,\yS) {Emulate a budget};
-\node[emu] (e1) at (\xB,\yT) {Remove duplicates,\\fix the pair set};
-\node[emu] (e2) at (\xB,\yB) {Thin each pair\\to rate $f$, $B{=}Kf$};
+\node[emu] (e1) at (\xB,\yT) {Remove duplicates,\\fix the link set};
+\node[emu] (e2) at (\xB,\yB) {Thin each link\\to rate $f$, $B{=}Kf$};
 
 \node[stage] at (\xC,\yS) {Features};
 \node[fea] (f1) at (\xC,\yT) {Decision window\\$W$ from 1 to 60\,s};
-\node[fea] (f2) at (\xC,\yB) {11 statistics per pair,\\standardized};
+\node[fea] (f2) at (\xC,\yB) {11 statistics per link,\\standardized};
 
 \node[stage] at (\xD,\yS) {Detectors};
 \node[det] (d1) at (\xD,\yT) {Trained: logistic\\regression, boosted\\trees, neural network};

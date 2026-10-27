@@ -12,11 +12,11 @@
 \draw[-{Stealth[length=1.4mm]}, black!50] (0,3.05) -- (3.05,3.05) node[right, black!70] {1\,s};
 \node[anchor=west, black!75] at (0,3.3) {One channel, 8 soundings per second};
 % row A: 2 pairs, each sounded 4 times
-\node[anchor=west, font=\footnotesize\sffamily\bfseries] at (0,2.6) {Few pairs, fast};
+\node[anchor=west, font=\footnotesize\sffamily\bfseries] at (0,2.6) {Few links, fast};
 \foreach \i/\c in {0/p1,1/p2,2/p1,3/p2,4/p1,5/p2,6/p1,7/p2}
   \node[slot, fill=\c] at ({0.18+0.37*\i},2.15) {};
 % row B: 8 pairs, each sounded once
-\node[anchor=west, font=\footnotesize\sffamily\bfseries] at (0,1.35) {Many pairs, slow};
+\node[anchor=west, font=\footnotesize\sffamily\bfseries] at (0,1.35) {Many links, slow};
 \foreach \i/\c in {0/p1,1/p2,2/p3,3/p4,4/p5,5/p6,6/p7,7/p8}
   \node[slot, fill=\c] at ({0.18+0.37*\i},0.9) {};
 % room sketches: six wall nodes

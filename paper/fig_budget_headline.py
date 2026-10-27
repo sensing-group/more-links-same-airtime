@@ -46,7 +46,7 @@ def draw(width_in: float, height_in: float, stem: str) -> None:
         ax.text(lx, ly, label, color=ps.OKABE_ITO[colour], ha=ha, va="center", fontsize=ps.SMALL_PT)
     ax.set_xscale("log", base=2)
     ax.set_xticks([1, 2, 4, 8, 16], labels=["1", "2", "4", "8", "16"])
-    ax.set_xlabel("Pairs sharing the same airtime")
+    ax.set_xlabel("Links sharing the same airtime")
     ax.set_ylabel("Detection AUC")
     ax.axhline(CHANCE, color=ps.OKABE_ITO["grey"], linestyle=":", linewidth=0.8)
     ax.text(16, CHANCE + 0.01, "chance", color=ps.OKABE_ITO["grey"], ha="right", va="bottom", fontsize=ps.SMALL_PT)

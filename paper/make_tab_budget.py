@@ -55,7 +55,7 @@ def bold(v: float, other: float) -> str:
 
 def main() -> None:
     lines = [r"\begin{table}[t]",
-             r"\caption{Few fast against many slow pairs at one budget (office 2 soundings/s, 4 at 10\,s; trials 8/s): classifier AUC and vote-rule $J$.}",
+             r"\caption{Few fast against many slow links at one budget (office 2 soundings/s, 4 at 10\,s; trials 8/s): classifier AUC and vote-rule $J$.}",
              r"\label{tab:budget}",
              r"\setlength{\tabcolsep}{3pt}",
              r"\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}llrccccc@{}}",

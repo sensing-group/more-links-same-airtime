@@ -19,11 +19,11 @@ def main() -> None:
     any_hour = json.loads((ANALYSIS_DIR / "decision_windows" / "unmatched_none" / dw).read_text())["windows"][TIME_WINDOW]
     matched = json.loads((ANALYSIS_DIR / "decision_windows" / dw).read_text())["windows"][TIME_WINDOW]
     rows = [
-        ("Raw variance, threshold set on the scored data", "$J$, 226 pairs",
+        ("Raw variance, threshold set on the scored data", "$J$, 226 links",
          f"{thr[K_ALL]['paper']:.2f}", f"{thr[K_ALL]['z_max_cv']:.2f} (max rule), {thr[K_ALL]['vote_cv']:.2f} (vote rule)"),
-        ("Folds share windows of a session", "AUC, 100 pairs",
+        ("Folds share windows of a session", "AUC, 100 links",
          f"{strat['lr_auc_mean'][0]:.2f}", f"{sess['lr_auc_mean'][0]:.2f}"),
-        ("Pair availability left in the features", "AUC of availability alone",
+        ("Link availability left in the features", "AUC of availability alone",
          f"{strat['mask_only_auc']:.2f}", "removed"),
         ("Empty windows from any time of day", "AUC of time of day alone",
          f"{any_hour['time_only_auc']:.2f}", f"{matched['time_only_auc']:.2f}"),

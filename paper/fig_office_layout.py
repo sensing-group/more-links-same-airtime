@@ -61,7 +61,7 @@ def main() -> None:
                    color=colour.get(mac, "white"))
         ax.annotate(n["label"], (px, py), textcoords="offset points", fontsize=ps.SMALL_PT, **outward(px, py, h, w))
     for tx in txs:
-        ax.plot([], [], color=colour[tx], label=f"Pairs sounded by {nodes[tx]['label']}")
+        ax.plot([], [], color=colour[tx], label=f"Links sounded by {nodes[tx]['label']}")
     fig.legend(loc="outside lower center", ncol=2)
     ax.set_xlim(-MARGIN_X, h + MARGIN_X)
     ax.set_ylim(-MARGIN_Y, w + MARGIN_Y)
