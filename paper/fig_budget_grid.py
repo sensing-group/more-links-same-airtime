@@ -21,6 +21,8 @@ OFFICE_WINDOWS = (5, 10, 20, 30, 60)
 TRIAL_WINDOWS = (1, 2, 5, 10)
 COLOURS = ("vermilion", "orange", "green", "blue", "purple")
 CHANCE = 0.5
+J_CHANCE = 0.0              # J of a detector whose alarms carry no information
+J_MIN = -0.05                # held-out J can fall slightly below chance (office, 60 s)
 
 
 def office_curve(w: int, metric: str):
@@ -59,12 +61,16 @@ def main() -> None:
         axes[0, col].set_title(title, loc="left")
         axes[0, col].axhline(CHANCE, color=ps.OKABE_ITO["grey"], linestyle=":", linewidth=0.8)
         axes[0, col].set_ylim(CHANCE, 1.0)
-        axes[1, col].set_ylim(0, 0.9)
+        axes[1, col].axhline(J_CHANCE, color=ps.OKABE_ITO["grey"], linestyle=":", linewidth=0.8)
+        axes[1, col].set_ylim(J_MIN, 0.9)
         axes[1, col].set_xscale("log", base=2)
         axes[1, col].set_xticks([1, 2, 4, 8, 16], labels=["1", "2", "4", "8", "16"])
         axes[1, col].set_xlabel("Links sharing the budget")
         axes[0, col].legend(title="Decision", loc=legend_loc, ncol=2, fontsize=ps.SMALL_PT,
                             title_fontsize=ps.SMALL_PT, handlelength=1.2, columnspacing=0.8)
+    for row, level in enumerate((CHANCE, J_CHANCE)):
+        axes[row, 0].text(1, level + 0.01, "chance", color=ps.OKABE_ITO["grey"], ha="left", va="bottom",
+                          fontsize=ps.SMALL_PT)
     axes[0, 0].set_ylabel("Classifier AUC")
     axes[1, 0].set_ylabel("Vote rule $J$")
     ps.save(fig, "fig_budget_grid")

@@ -42,9 +42,9 @@ def receivers() -> None:
     ax.set_xticks(x, [c[2] for c in RECEIVER_CASES])
     ax.set_ylabel("Detection AUC")
     ax.set_ylim(0, 1.04)
-    ax.axhline(CHANCE, color=ps.OKABE_ITO["grey"], linestyle=":", linewidth=0.8, zorder=0)
+    ax.axhline(CHANCE, color=ps.OKABE_ITO["black"], linestyle=":", linewidth=0.8, zorder=3, label="Chance")
     ax.grid(axis="x", visible=False)
-    fig.legend(loc="outside upper center", ncol=2)
+    fig.legend(loc="outside upper center", ncol=3)
     ps.save(fig, "fig_receivers")
 
 
