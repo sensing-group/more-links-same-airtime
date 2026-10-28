@@ -40,7 +40,7 @@ import orjson
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
-from ghost_eval.memlimit import safe_pool_map, set_vm_limit  # noqa: E402
+from memlimit.memlimit import safe_pool_map, set_vm_limit  # noqa: E402
 from extract_rate_decimated_features import FEATURE_NAMES, decimated_indices, link_window_features  # noqa: E402
 
 DATASET_DIR = Path(os.environ.get("DATASET_DIR", str(REPO_ROOT / "dataset-release-apartment" / "extracted" / "dataset_release")))

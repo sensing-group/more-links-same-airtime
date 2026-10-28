@@ -46,7 +46,7 @@ import numpy as np
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
-from ghost_eval.memlimit import get_available_ram_bytes, safe_pool_map, set_vm_limit  # noqa: E402
+from memlimit.memlimit import get_available_ram_bytes, safe_pool_map, set_vm_limit  # noqa: E402
 
 DATASET_DIR = Path(os.environ.get("DATASET_DIR", str(REPO_ROOT / "dataset-release")))
 OUT_DIR = Path(os.environ.get("OUT_DIR", str(REPO_ROOT / "data" / "csi-sense-trials" / "rate_decimated")))

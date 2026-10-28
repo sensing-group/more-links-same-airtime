@@ -49,7 +49,7 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
-from ghost_eval.memlimit import set_vm_limit  # noqa: E402
+from memlimit.memlimit import set_vm_limit  # noqa: E402
 from extract_rate_decimated_features import FEATURE_NAMES, decimated_indices, link_window_features  # noqa: E402
 
 TRIALS_DIR = Path(os.environ.get("TRIALS_DIR", str(Path(__file__).resolve().parent.parent / "data" / "trials")))

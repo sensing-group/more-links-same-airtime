@@ -34,7 +34,7 @@ from sklearn.model_selection import StratifiedGroupKFold, StratifiedKFold
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
-from ghost_eval.memlimit import set_vm_limit  # noqa: E402
+from memlimit.memlimit import set_vm_limit  # noqa: E402
 
 IN_DIR = Path(os.environ.get("IN_DIR", str(REPO_ROOT / "data" / "csi-sense-trials" / "rate_decimated")))
 OUT_PATH = Path(os.environ.get("OUT_PATH", str(IN_DIR / "rate_decimation_ablation.json")))

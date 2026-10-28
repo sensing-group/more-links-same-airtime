@@ -27,7 +27,7 @@ from sklearn.metrics import roc_auc_score
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
-from ghost_eval.memlimit import set_vm_limit  # noqa: E402
+from memlimit.memlimit import set_vm_limit  # noqa: E402
 import scripted_trial_decision_windows as st  # noqa: E402
 
 OUT_PATH = Path(os.environ.get("OUT_PATH", str(REPO_ROOT / "data" / "csi-sense-trials" / "radio_noise_floor.json")))

@@ -25,7 +25,7 @@ import numpy as np
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
-from ghost_eval.memlimit import set_vm_limit  # noqa: E402
+from memlimit.memlimit import set_vm_limit  # noqa: E402
 
 DATA = REPO_ROOT / "data" / "csi-sense-trials"
 IN_DIR = Path(os.environ.get("IN_DIR", str(DATA / "rate_decimated")))

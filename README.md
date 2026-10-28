@@ -58,7 +58,7 @@ License: MIT.
 | `reproduce/` | Fetch, run, compare and claim-check scripts (see ARTIFACT.md) |
 | `history/` | Earlier analyses the paper quotes, with the code of that time |
 | `capture/` | The recorder and ESP32 firmware that captured the scripted trials, at commit `618c876`, with WiFi credentials replaced by placeholders |
-| `ghost_eval/` | Memory limit helper used by the scripts |
+| `memlimit/` | Memory limit helper used by the scripts |
 | `data/` | Place the dataset here: `data/office/sessions/`, `data/office/features/` and `data/trials/` |
 | `tdma-mesh/` | The earlier TDMA recorder and the preprint's analysis (see its README) |
 

@@ -45,7 +45,7 @@ import numpy as np
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
-from ghost_eval.memlimit import set_vm_limit  # noqa: E402
+from memlimit.memlimit import set_vm_limit  # noqa: E402
 from rate_decimation_ablation import (N_DRAWS, balance, time_bin, load, load_times, lr_auc,  # noqa: E402
                                      make_splits, time_only_auc)
 

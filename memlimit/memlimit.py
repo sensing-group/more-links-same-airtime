@@ -1,5 +1,5 @@
 """
-Memory safety utilities for ghost_eval scripts.
+Memory safety utilities for the analysis scripts.
 
 Prevents OOM kills on memory-constrained machines (e.g., 16 GB) by:
 1. Capping multiprocessing workers based on available RAM
@@ -16,15 +16,13 @@ from typing import Optional
 logger = logging.getLogger(__name__)
 
 # Estimated peak RSS per worker process (bytes).
-# Each worker loads one session through AutoCalibrator + builds per-link
-# data structures.  Empirical peak: ~2-4 GB per worker.
+# Each worker loads one session and builds per-link data structures.
+# Empirical peak: ~2-4 GB per worker.
 ESTIMATED_WORKER_RSS_BYTES = 4 * 1024 ** 3  # 4 GB conservative estimate
 
-# Env var name for overriding ESTIMATED_WORKER_RSS_BYTES per-machine, e.g. on
-# a dedicated analysis node whose measured peak RSS differs from the
-# conservative shared default (set by scripts/node_offload_night_extraction.sh
-# and scripts/node_extract_session.sh after profiling that node). Unset by
-# default, so behavior everywhere else is unchanged.
+# Env var name for overriding ESTIMATED_WORKER_RSS_BYTES per machine, e.g. on
+# a machine whose measured peak RSS differs from the conservative default.
+# Unset by default.
 WORKER_RSS_ENV_VAR = "ESTIMATED_WORKER_RSS_BYTES"
 
 
@@ -42,7 +40,7 @@ def _resolve_worker_rss_bytes(explicit: Optional[int]) -> int:
             logger.warning(f"Ignoring invalid {WORKER_RSS_ENV_VAR}={env_val!r}")
     return ESTIMATED_WORKER_RSS_BYTES
 
-# Fraction of total RAM we allow ghost_eval processes to use.
+# Fraction of total RAM the analysis processes may use.
 # Leave headroom for OS, Docker, and the parent process.
 RAM_BUDGET_FRACTION = 0.70
 
